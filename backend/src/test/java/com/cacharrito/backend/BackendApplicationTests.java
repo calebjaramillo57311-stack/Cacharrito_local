@@ -1,4 +1,4 @@
-package com.universidad.backend;
+package com.cacharrito.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

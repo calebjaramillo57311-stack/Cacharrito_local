@@ -1,4 +1,4 @@
-package com.universidad.backend.repositorio;
+package com.cacharrito.backend.repositorio;
 
 public class AdministradorRepositorio {
     

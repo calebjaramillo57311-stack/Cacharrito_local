@@ -1,4 +1,4 @@
-package com.universidad.backend.servicios;
+package com.cacharrito.backend.servicios;
 
 public class AdministradorServicios {
     
