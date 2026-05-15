@@ -1,19 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Viaje } from '../entidades/viaje';
 import { ViajeService } from '../servicio/viaje';
+import { registerLocaleData, DecimalPipe } from '@angular/common';
+import localeEs from '@angular/common/locales/es-CO';
+
+registerLocaleData(localeEs);
 
 @Component({
   selector: 'app-reservar',
-  imports: [FormsModule],
+  imports: [FormsModule, DecimalPipe],
   templateUrl: './reservar.html',
   styleUrl: './reservar.css',
 })
 export class Reservar {
-  destino: String = "";
-  fecha: String = "";
-  buscado: boolean = false;
-  viajesEncontrados: Viaje[] = [];
+  destino: string = "";
+  fecha: string = "";
+  buscado = signal(false);
+  viajesEncontrados = signal<Viaje[]>([]);
 
   constructor(private viajeService: ViajeService) {}
 
@@ -24,8 +28,9 @@ export class Reservar {
     }
     
     this.viajeService.consultarViaje(this.destino, this.fecha).subscribe(dato => {
-      this.viajesEncontrados = dato;
-      this.buscado = true;
+      this.viajesEncontrados.set(dato);
+      this.buscado.set(true);
+      console.log(dato);
     });
   }
 }

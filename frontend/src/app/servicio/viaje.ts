@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Viaje } from '../entidades/viaje';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams  } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,8 @@ export class ViajeService {
 
   private listarV = 'http://localhost:8080/viaje/listarViajes/';
 
-  consultarViaje(destino: String, fecha: String) : Observable<Viaje[]>  {
-    return this.httpCliente.get<Viaje[]>(`${this.listarV}${destino}/${fecha}`);
+  consultarViaje(destino: string, fecha: string) : Observable<Viaje[]>  {
+    const params = new HttpParams().set('destino', destino).set('fecha', fecha);
+    return this.httpCliente.get<Viaje[]>(this.listarV, {params});
   }
 }

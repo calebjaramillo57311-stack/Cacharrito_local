@@ -2,10 +2,10 @@ import { Automovil } from "./automovil";
 
 export class Viaje {
     idViaje: number;
-    destino: String;
+    destino: string;
     fechaSalida: Date;
-    horaSalida: String;
+    horaSalida: string;
     puestosDisponibles: number;
     precioViaje: number;
-    numeroAutomovil: Automovil;
+    automovil: Automovil;
 }
