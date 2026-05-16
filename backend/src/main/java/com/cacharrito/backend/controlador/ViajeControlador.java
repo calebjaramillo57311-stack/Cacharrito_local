@@ -1,21 +1,21 @@
 package com.cacharrito.backend.controlador;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-import com.cacharrito.backend.repositorio.viaje;
 import com.cacharrito.backend.modelo.Viaje;
+import com.cacharrito.backend.repositorio.viaje;
 
 @RestController
 @RequestMapping("/viaje")
 @CrossOrigin(origins= "http://localhost:4200")
-public class ControladoraViaje {
+public class ViajeControlador {
     
     @Autowired
     private viaje repositorioViaje;
