@@ -33,7 +33,7 @@ public class Reserva {
     private Double totalPagar;
 
     @ManyToOne
-    @JoinColumn(name = "usuarioCedula", nullable = false,columnDefinition = "INT UNSIGNED")
+    @JoinColumn(name = "usuarioCedula", nullable = false)
     private Usuario usuario;
 
     @ManyToOne
@@ -41,7 +41,7 @@ public class Reserva {
     private Viaje viaje;
 
     @ManyToOne
-    @JoinColumn(name = "idAdministrador", nullable = false,columnDefinition = "INT UNSIGNED")
+    @JoinColumn(name = "idAdministrador", columnDefinition = "INT UNSIGNED")
     private Administrador administrador;
 
     public Reserva() {

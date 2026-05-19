@@ -1,13 +1,14 @@
-export interface Reserva {
+import { Administrador } from "./administrador";
+import { Usuario } from "./usuario";
+import { Viaje } from "./viaje";
 
-    idReserva:number;
-    fechaReserva:Date;
-    estado:string;
-    puestoAsignado:number;
-    totalPagar:number;
-    usuario:string;
-    idViaje:number;
-    idAdministrador:number;
-
-
+export class Reserva {
+    idReserva: number;
+    fechaReserva: Date;
+    estado: string;
+    puestoAsignado: number;
+    totalPagar: number;
+    viaje: Viaje;    
+    administrador: Administrador; 
+    usuario: Usuario;       
 }
