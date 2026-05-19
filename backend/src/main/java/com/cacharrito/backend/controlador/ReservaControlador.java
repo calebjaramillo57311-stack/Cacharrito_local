@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,19 +14,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cacharrito.backend.modelo.Reserva;
+import com.cacharrito.backend.modelo.Viaje;
 import com.cacharrito.backend.repositorio.ReservaRepositorio;
-
-
-
-
+import com.cacharrito.backend.repositorio.ViajeRepositorio;
+import com.cacharrito.backend.repositorio.UsuarioRepositorio;
 
 @RestController
-@RequestMapping("reservas/")
+@RequestMapping("/reserva")
+@CrossOrigin(origins= "http://localhost:4200")
 public class ReservaControlador {
     @Autowired
     private ReservaRepositorio repoReserva;
 
-    
+    @Autowired
+    private ViajeRepositorio repoViaje;
+
+    @Autowired
+    private UsuarioRepositorio repoUsuario;
 
     //  mostrar todas las reservas
     @GetMapping("listarTodo/")
@@ -35,8 +40,18 @@ public class ReservaControlador {
 
     //guardar 
     @PostMapping("guardareserva/")
-    public Reserva guardarReserva(@RequestBody Reserva reserva){
-        return repoReserva.save(reserva);
+    public Reserva guardarReserva(@RequestBody Reserva reserva) {
+        repoUsuario.save(reserva.getUsuario());
+
+        Reserva guardada = repoReserva.save(reserva);
+
+        Viaje viaje = reserva.getViaje();
+        if (viaje != null && viaje.getPuestosDisponibles() > 0) {
+            viaje.setPuestosDisponibles(viaje.getPuestosDisponibles() - 1);
+            repoViaje.save(viaje);
+        }
+
+        return guardada;
     }
     
     // buscar reserva por id
@@ -58,8 +73,4 @@ public class ReservaControlador {
     public Reserva actualizarReserva(@RequestBody Reserva reserva){
         return repoReserva.save(reserva);
     }
-
-    
 }
-
-

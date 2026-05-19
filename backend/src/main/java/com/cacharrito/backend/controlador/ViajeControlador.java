@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cacharrito.backend.modelo.Viaje;
-import com.cacharrito.backend.repositorio.viaje;
+import com.cacharrito.backend.repositorio.ViajeRepositorio;
 
 @RestController
 @RequestMapping("/viaje")
@@ -18,11 +18,17 @@ import com.cacharrito.backend.repositorio.viaje;
 public class ViajeControlador {
     
     @Autowired
-    private viaje repositorioViaje;
+    private ViajeRepositorio repositorioViaje;
 
     @GetMapping("listarViajes/")
     public List<Viaje> listarViajes(@RequestParam("destino") String destino, @RequestParam("fecha") String fecha){
         List<Viaje> viajes = repositorioViaje.listarViajes(destino, fecha);
         return viajes;
+    }
+
+    @GetMapping("buscarViaje/")
+    public Viaje buscarViaje(@RequestParam int idViaje) {
+        Viaje viaje = repositorioViaje.findById(idViaje).get();
+        return viaje;
     }
 }

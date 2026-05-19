@@ -1,203 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-* {
-  font-family: 'Inter', sans-serif;
-  box-sizing: border-box;
+.form-control {
+  background-color: #f8f9fa; 
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
 }
 
-:root {
-  --navy: #001f3f;
-  --light-gray: #f4f7f9;
-  --brown-text: #8d6e63;
-  --blue-soft: #e3f2fd;
-}
-
-.hero-section {
-  min-height: 260px;
-  background: linear-gradient(rgba(0, 31, 63, 0.6), rgba(0, 31, 63, 0.6)),
-    url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2000') no-repeat center center;
-  background-size: cover;
-  padding: 40px 0;
-}
-
-.hero-section h1 {
-  font-size: 2rem !important;   
-  margin-bottom: 1rem !important;
-}
-
-.search-container {
-  padding: 1rem 1.25rem !important;   
-  border-radius: 12px !important;
-}
-
-.custom-input {
-  background-color: #f8f9fa !important;
-  border: 2px solid #e9ecef !important;
-  border-radius: 12px !important;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
-  color: #002147;
-  padding-top: 0.5rem !important;
-  padding-bottom: 0.5rem !important;
-  font-size: 0.9rem;
-}
-
-.custom-input:hover {
-  background-color: #ffffff !important;
-  border-color: #dee2e6 !important;
-}
-
-.custom-input:focus {
-  background-color: #ffffff !important;
-  border-color: #ff9f43 !important;
-  box-shadow: 0 0 0 4px rgba(255, 159, 67, 0.1) !important;
-}
-
-.btn-buscar-viajes {
-  background-color: #ff9f43;
-  color: #002147;
-  border: none;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  padding-top: 0.5rem !important;
-  padding-bottom: 0.5rem !important;
-  font-size: 0.85rem;
-}
-
-.btn-buscar-viajes:hover {
-  background-color: #f39c12;
-  transform: translateY(-2px);
-}
-
-.results-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--navy);
-}
-
-.btn-ordenar {
-  background: #fff;
-  border: 1px solid #dee2e6;
-  border-radius: 6px;
-  font-size: 0.78rem;
-  color: #6c757d;
-  padding: 5px 12px;
-}
-
-.viaje-card {
-  border: 1px solid #e0e6ed;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-  transition: box-shadow 0.2s ease;
-}
-
-.viaje-card:hover {
-  box-shadow: 0 2px 12px rgba(0, 31, 63, 0.08);
-}
-
-.col-hora {
-  background-color: var(--light-gray);
-  padding: 14px 20px;
-}
-
-.hora-text {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--navy);
-  white-space: nowrap;
-}
-
-.col-info {
-  padding: 14px 16px;
-  background: #fff;
-}
-
-.col-precio {
-  padding: 14px 20px;
-  background: #fff;
-}
-
-.col-accion {
-  background-color: var(--light-gray);
-  padding: 14px 18px;
-}
-
-.label-caps {
-  font-size: 0.62rem;
+.form-label {
+  font-size: 0.75rem; 
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #9e9e9e;
-  font-weight: 600;
-}
-
-.icon-square-blue {
-  background-color: var(--blue-soft);
-  color: #1976d2;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  flex-shrink: 0;
-}
-
-.price-amount {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--navy);
-  line-height: 1;
-}
-
-.price-currency {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: #78909c;
 }
 
 .btn-navy-action {
-  background-color: #002d5c;
+  background-color: #001f3f; 
   color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  padding: 8px 16px;
-  white-space: nowrap;
-  transition: background 0.2s;
-  display: flex;
-  align-items: center;
+  border-radius: 8px;
 }
 
-.btn-navy-action:hover {
-  background-color: #001f3f;
-  color: white;
+.x-small { font-size: 0.65rem; }
+.card { border: 1px solid rgba(0,0,0,0.05); }
+
+.container {
+  max-width: 900px; 
 }
 
-.text-navy  { color: var(--navy); }
-.text-brown { color: var(--brown-text); }
-.bg-light-gray { background-color: var(--light-gray); }
-
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out;
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.125) !important; 
+  border-radius: 1rem !important; 
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+.card-header {
+  background-color: #f8f9fa !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-  cursor: pointer;
-  filter: invert(0.5);
+.form-label {
+  font-size: 0.8rem;
+  color: #555;
 }
 
-@media (max-width: 768px) {
-  .border-end, .border-start { border: none !important; }
-  .viaje-card { text-align: center; }
-  .col-hora, .col-info, .col-precio, .col-accion { justify-content: center !important; }
-  .price-amount { font-size: 1rem; }
-  .hora-text { font-size: 1rem; }
+.form-control {
+  background-color: #f0f4f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+}
+
+.form-control:focus {
+  background-color: #fff;
+  border-color: #001f3f;
+  box-shadow: 0 0 0 0.2rem rgba(0, 31, 63, 0.15);
 }
