@@ -12,27 +12,27 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="viaje")
+@Table(name="Viaje")
 public class Viaje {
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    @Column(name="id_viaje", nullable = false, columnDefinition = "INT UNSIGNED")
+    @Column(name="idViaje", nullable = false, columnDefinition = "INT UNSIGNED")
     private int idViaje;
 
     @Column(name="destino", nullable = false, length = 100)
     private String destino;
 
-    @Column(name="fecha_salida", nullable = false)
+    @Column(name="fechaSalida", nullable = false)
     private Date fechaSalida;
 
-    @Column(name="hora_salida", nullable = false)
+    @Column(name="horaSalida", nullable = false)
     private Time horaSalida;
 
     @Column(name="puestosDisponibles", nullable = false)
     private int puestosDisponibles;
 
-    @Column(name="precio_viaje", nullable = false)
+    @Column(name="precioViaje", nullable = false)
     private Double precioViaje;
 
     @ManyToOne

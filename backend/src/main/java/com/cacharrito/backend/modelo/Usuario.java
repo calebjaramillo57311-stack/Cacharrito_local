@@ -1,18 +1,17 @@
 package com.cacharrito.backend.modelo;
 
 import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="usuario")
+@Table(name="Usuario")
 public class Usuario {
 
     @Id
-    @Column(name="cedula", nullable = false)
+    @Column(name="cedula", nullable = false, length = 10)
     private String cedula;
 
     @Column(name="nombre", nullable = false, length = 45)
@@ -24,7 +23,7 @@ public class Usuario {
     @Column(name="telefono", nullable = false, length = 20)
     private String telefono;
 
-    @Column(name="fecha_nacimiento", nullable = false)
+    @Column(name="fechaNacimiento", nullable = false)
     private Date fechaNacimiento;
 
     public Usuario() {}

@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +15,7 @@ import com.cacharrito.backend.modelo.Administrador;
 import com.cacharrito.backend.repositorio.AdministradorRepositorio;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:8080")
 public class AdministradorControlador {
 
     private final AdministradorRepositorio AdministradorRepositorio;
@@ -36,10 +34,8 @@ public ResponseEntity<?> login(@RequestHeader("Authorization") String authHeader
         String username = values[0];
         String password = values[1];
 
-        String usuarioCodificado = Base64.getEncoder().encodeToString(username.getBytes());
-        String passwordCodificado = Base64.getEncoder().encodeToString(password.getBytes());
         Optional<Administrador> admin = AdministradorRepositorio
-        .findByUsuarioAndContrasena(usuarioCodificado, passwordCodificado);
+            .findByUsuarioAndContrasena(username, password);
 
         if (admin.isPresent()) {
             return ResponseEntity.ok("Login exitoso");

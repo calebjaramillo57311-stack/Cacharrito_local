@@ -6,14 +6,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 
 @Entity
-@Table(name="automovil")
+@Table(name="Automovil")
 public class Automovil {
     
     @Id
-    @Column(name="numero_automovil", nullable=false, columnDefinition = "INT UNSIGNED")
+    @Column(name="numeroAutomovil", nullable=false, columnDefinition = "INT UNSIGNED")
     private int numeroAutomovil;
 
-    @Column(name="cantidad_puestos", nullable=false)
+    @Column(name="cantidadPuestos", nullable=false)
     private int cantidadPuestos;
 
     public Automovil(int numeroAutomovil, int cantidadPuestos) {

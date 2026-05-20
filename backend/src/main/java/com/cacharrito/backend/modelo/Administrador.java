@@ -7,12 +7,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="administrador")
+@Table(name="Administrador")
 public class Administrador {
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    @Column(name="id_administrador", nullable = false,columnDefinition = "INT UNSIGNED")
+    @Column(name="idAdministrador", nullable = false,columnDefinition = "INT UNSIGNED")
     private  int idAdministrador;
 
     @Column(name="usuario", nullable = false, length = 45)

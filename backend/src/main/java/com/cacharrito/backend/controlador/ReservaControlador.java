@@ -20,9 +20,10 @@ import com.cacharrito.backend.repositorio.ViajeRepositorio;
 import com.cacharrito.backend.repositorio.UsuarioRepositorio;
 
 @RestController
-@RequestMapping("/reserva")
-@CrossOrigin(origins= "http://localhost:4200")
+@RequestMapping("reserva/") 
+@CrossOrigin(origins= "http://localhost:4200/") 
 public class ReservaControlador {
+    
     @Autowired
     private ReservaRepositorio repoReserva;
 
@@ -32,13 +33,13 @@ public class ReservaControlador {
     @Autowired
     private UsuarioRepositorio repoUsuario;
 
-    //  mostrar todas las reservas
+    // Mostrar todas las reservas
     @GetMapping("listarTodo/")
-    public List<Reserva>mostrarRerservas () {
+    public List<Reserva> mostrarRerservas () {
         return repoReserva.findAll();
     }
 
-    //guardar 
+    // Guardar reserva
     @PostMapping("guardareserva/")
     public Reserva guardarReserva(@RequestBody Reserva reserva) {
         repoUsuario.save(reserva.getUsuario());
@@ -54,13 +55,13 @@ public class ReservaControlador {
         return guardada;
     }
     
-    // buscar reserva por id
+    // Buscar reserva por id
     @GetMapping("buscarReserva/")
     public Reserva buscarReserva(@RequestBody int idReserva){
         return repoReserva.findById(idReserva).orElse(null);
     }
 
-    //eliminar reserva
+    // Eliminar reserva
     @DeleteMapping("eliminarReserva/")
     public Optional<Reserva> eliminarReserva(@RequestBody int idReserva){
         Optional<Reserva> reserva = repoReserva.findById(idReserva);
@@ -68,7 +69,7 @@ public class ReservaControlador {
         return reserva;
     }
 
-    // actualizar reserva
+    // Actualizar reserva
     @PutMapping("actualizarReserva/")
     public Reserva actualizarReserva(@RequestBody Reserva reserva){
         return repoReserva.save(reserva);

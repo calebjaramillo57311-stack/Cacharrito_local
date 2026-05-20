@@ -13,7 +13,7 @@ import com.cacharrito.backend.modelo.Viaje;
 import com.cacharrito.backend.repositorio.ViajeRepositorio;
 
 @RestController
-@RequestMapping("/viaje")
+@RequestMapping("/viaje/")
 @CrossOrigin(origins= "http://localhost:4200")
 public class ViajeControlador {
     
