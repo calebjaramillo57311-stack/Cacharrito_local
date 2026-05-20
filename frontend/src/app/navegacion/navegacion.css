@@ -1,3 +1,7 @@
+body, :host {
+    background: #f0f6ff;
+    min-height: 100vh;
+}
 main {
     min-height: calc(100vh - 160px); 
 }

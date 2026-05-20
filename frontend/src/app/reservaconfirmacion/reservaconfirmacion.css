@@ -1,0 +1,207 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 2rem;
+    text-align: center;
+}
+
+.titulo-principal {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0d1f3c;
+    margin-bottom: 10px;
+}
+
+.container > p {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 2rem;
+}
+
+.grid-informacion {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 16px;
+    align-items: start;
+    text-align: left;
+}
+
+.card-detalles {
+    background: #fff;
+    border: 0.5px solid #dde3ec;
+        border-radius: 14px;
+    padding: 1.25rem;
+    text-align: left;
+}
+
+.titulo-seccion {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0d1f3c;
+    margin-bottom: 1.1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.info-items-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 1rem;
+    margin-bottom: 0;
+}
+
+.icono {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.texto {
+    display: flex;
+    flex-direction: column;
+}
+
+.etiqueta {
+    font-size: 10px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.valor {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.caja-id-reserva {
+    background: #f8fafc;
+    border: 0.5px solid #dde3ec;
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    margin-top: 12px;
+    text-align: left;
+    grid-column: 1;
+}
+
+.titulo-id {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0d1f3c;
+    margin-bottom: 4px;
+}
+
+.numero-id {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.columna-derecha {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    grid-column: 2;
+    grid-row: 1 / span 3;
+}
+
+.card-puesto {
+    background: #0d1f3c;
+    border-radius: 14px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+}
+
+.etiqueta-puesto {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.numero-puesto {
+    font-size: 52px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+}
+
+.card-total {
+    background: #fff;
+    border: 0.5px solid #dde3ec;
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.titulo-total {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.precio-total {
+    font-size: 16px;
+    font-weight: 700;
+    color: #c07c2a;
+}
+
+.acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-primario {
+    background: #0d1f3c;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    font-family: inherit;
+}
+
+.btn-primario:hover {
+    background: #1a3a6b;
+}
+
+.btn-secundario {
+    background: #fff;
+    color: #0d1f3c;
+    border: 1.5px solid #0d1f3c;
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    font-family: inherit;
+}
+
+.btn-secundario:hover {
+    background: #b0d7ff;
+}
