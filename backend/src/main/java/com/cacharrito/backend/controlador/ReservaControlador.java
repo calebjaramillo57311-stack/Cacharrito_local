@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cacharrito.backend.modelo.Reserva;
 import com.cacharrito.backend.modelo.Viaje;
 import com.cacharrito.backend.repositorio.ReservaRepositorio;
-import com.cacharrito.backend.repositorio.ViajeRepositorio;
 import com.cacharrito.backend.repositorio.UsuarioRepositorio;
+import com.cacharrito.backend.repositorio.ViajeRepositorio;
 
 @RestController
 @RequestMapping("reserva/") 
@@ -55,10 +56,11 @@ public class ReservaControlador {
         return guardada;
     }
     
-    // Buscar reserva por id
-    @GetMapping("buscarReserva/")
-    public Reserva buscarReserva(@RequestBody int idReserva){
-        return repoReserva.findById(idReserva).orElse(null);
+    // Buscar reserva por cedula
+    @GetMapping("listarReservas/")
+    public List<Reserva> listarReservas(@RequestParam ("cedula") String cedula){
+        List<Reserva> r = repoReserva.findByUsuarioCedula(cedula);
+        return r;
     }
 
     // Eliminar reserva
