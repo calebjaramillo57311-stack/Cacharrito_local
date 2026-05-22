@@ -1,0 +1,102 @@
+<div class="container py-4">
+
+  <div class="row justify-content-center mb-4">
+    <div class="col-12 col-md-10 col-lg-8">
+      <div class="card shadow-sm border-0 p-4">
+        <h5 class="fw-bold mb-1">Consultar Reserva</h5>
+        <p class="text-muted small mb-3">
+        Introduce tu cedula para ver y gestionar los detalles de tus viajes.
+        </p>
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#6c757d" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11"/>
+            </svg>
+          </span>
+          <input
+            type="text"
+            class="form-control border-start-0 ps-0"
+            placeholder="Cedula..."
+            [(ngModel)]="busquedaId"
+            name="busquedaId"
+            (keyup.enter)="buscarReserva()"
+          />
+          <button class="btn btn-buscar px-4 fw-semibold" (click)="buscarReserva()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="me-1" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11"/>
+            </svg>
+            Buscar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTADOS -->
+  @if (buscado()) {
+    <div class="mb-3">
+      <h6 class="fw-bold resultados-titulo">
+        Resultados Disponibles ({{ reservas().length }})
+      </h6>
+    </div>
+
+    @if (cargando()) {
+      <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    }
+
+    @if (!cargando() && reservas().length === 0) {
+      <div class="text-center py-5 text-muted">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="mb-3 opacity-50" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+        </svg>
+        <p class="mb-0">No se encontraron reservas.</p>
+      </div>
+    }
+
+    @if (!cargando() && reservas().length > 0) {
+      <div class="row g-3">
+        @for (reserva of reservas(); track reserva.idReserva) {
+          <div class="col-12 col-md-6">
+            <div class="card card-reserva border-0 h-100">
+              <div class="card-body p-4">
+
+                <span class="badge-reserva mb-1 d-inline-block">
+                  Reserva #{{ reserva.idReserva }}
+                </span>
+
+                <h5 class="fw-bold mb-3 destino-text">
+                  {{ reserva.viaje.destino  }}
+                </h5>
+
+                <div class="d-flex align-items-center gap-4">
+                  <div class="detalle-grupo">
+                    <span class="detalle-label">Puesto</span>
+                    <span class="detalle-valor">{{ reserva.puestoAsignado < 10 ? '0' + reserva.puestoAsignado : reserva.puestoAsignado }}</span>
+                  </div>
+                  <div class="detalle-grupo">
+                    <span class="detalle-label">Fecha</span>
+                    <span class="detalle-valor">{{ formatearFecha(reserva.fechaReserva) }}</span>
+                  </div>
+                  <div class="ms-auto text-end">
+                    <span class="detalle-precio">${{ reserva.totalPagar | number }}<small> COP</small></span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="card-footer bg-transparent border-top-0 pt-0 px-4 pb-3">
+                <button class="btn btn-cancelar w-100">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  }
+
+</div>

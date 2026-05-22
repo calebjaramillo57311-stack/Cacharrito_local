@@ -5,6 +5,7 @@ import { ReservaConfirmacion } from './reservaconfirmacion/reservaconfirmacion';
 import { DashboardAdmin } from './dashboard-admin/dashboard-admin';
 import { AdministradorEntidad } from './entidades/administrador-entidad';
 import { login } from './login/login';
+import { MisReservas } from './mis-reservas/mis-reservas';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'viajesDisponibles', pathMatch: 'full' },
@@ -12,5 +13,6 @@ export const routes: Routes = [
     { path: 'reservar/:id', component: Reservar },
     { path: 'reservaconfirmacion', component: ReservaConfirmacion },
     { path: 'login', component: login },
-    { path: 'dashboard', component: DashboardAdmin }
+    { path: 'dashboard', component: DashboardAdmin },
+    {path: 'misReservas', component: MisReservas}
 ];
