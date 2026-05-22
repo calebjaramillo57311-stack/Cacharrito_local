@@ -1,4 +1,4 @@
-import { Administrador } from './administrador';
+import { Administrador } from './administrador-servicio';
 
 describe('Administrador', () => {
   it('should create an instance', () => {

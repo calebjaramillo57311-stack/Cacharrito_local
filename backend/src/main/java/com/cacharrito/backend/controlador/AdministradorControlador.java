@@ -1,6 +1,7 @@
 package com.cacharrito.backend.controlador;
 
 import java.util.Base64;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -8,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +18,7 @@ import com.cacharrito.backend.modelo.Administrador;
 import com.cacharrito.backend.repositorio.AdministradorRepositorio;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AdministradorControlador {
 
     private final AdministradorRepositorio AdministradorRepositorio;
@@ -23,6 +26,23 @@ public class AdministradorControlador {
     public AdministradorControlador(AdministradorRepositorio administradorRepositorio) {
         this.AdministradorRepositorio = administradorRepositorio;
     }
+
+@PostMapping("/registro")
+public ResponseEntity<?> registro(@RequestBody Map<String, String> body) {
+    String usuario = body.get("usuario");
+    String contrasena = body.get("contrasena");
+
+    String usuarioCodificado = Base64.getEncoder().encodeToString(usuario.getBytes());
+    String passwordCodificado = Base64.getEncoder().encodeToString(contrasena.getBytes());
+
+    Administrador admin = new Administrador();
+    admin.setUsuario(usuarioCodificado);
+    admin.setContrasena(passwordCodificado);
+
+    AdministradorRepositorio.save(admin);
+
+    return ResponseEntity.ok("Administrador registrado correctamente");
+}
 
 @GetMapping("/login")
 public ResponseEntity<?> login(@RequestHeader("Authorization") String authHeader) {
@@ -34,8 +54,10 @@ public ResponseEntity<?> login(@RequestHeader("Authorization") String authHeader
         String username = values[0];
         String password = values[1];
 
+        String usuarioCodificado = Base64.getEncoder().encodeToString(username.getBytes());
+        String passwordCodificado = Base64.getEncoder().encodeToString(password.getBytes());
         Optional<Administrador> admin = AdministradorRepositorio
-            .findByUsuarioAndContrasena(username, password);
+        .findByUsuarioAndContrasena(usuarioCodificado, passwordCodificado);
 
         if (admin.isPresent()) {
             return ResponseEntity.ok("Login exitoso");
