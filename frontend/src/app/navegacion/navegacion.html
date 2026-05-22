@@ -15,7 +15,8 @@
             </ul>
 
             <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-admin shadow-sm text-white fw-bold">Admin Portal</button>
+                <button *ngIf="!estaLogueado" class="btn btn-admin shadow-sm text-white fw-bold" (click)="router.navigate(['/login'])">Admin Portal</button>
+                <button *ngIf="estaLogueado" class="btn btn-danger shadow-sm text-white fw-bold" (click)="cerrarSesion()">Cerrar Sesión</button>
             </div>
         </div>
 

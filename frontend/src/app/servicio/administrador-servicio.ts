@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
-export class LoginServicio {
+export class AdministradorServicio {
 
     private  apiUrl = 'http://localhost:8080/login';
 
@@ -23,4 +23,4 @@ export class LoginServicio {
     
     return this.http.get(this.apiUrl, { headers, responseType: 'text' as 'json' });
     }
-}
+  }

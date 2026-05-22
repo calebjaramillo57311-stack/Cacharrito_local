@@ -1,4 +1,4 @@
-import { Administrador } from "./administrador";
+import { AdministradorServicio } from "../servicio/administrador-servicio";
 import { Usuario } from "./usuario";
 import { Viaje } from "./viaje";
 
@@ -9,6 +9,6 @@ export class Reserva {
     puestoAsignado: number;
     totalPagar: number;
     viaje: Viaje;    
-    administrador: Administrador; 
+    administrador: AdministradorServicio; 
     usuario: Usuario;       
 }

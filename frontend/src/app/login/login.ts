@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoginServicio } from '../servicio/loginservicio';
+import { AdministradorServicio } from '../servicio/administrador-servicio';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,32 +11,30 @@ import { Router } from '@angular/router';
     styleUrl: './login.css'
 })
 
-export class LoginEntidad {
+export class login{
     mostrarPass: boolean = false;
     usuario: string = '';
     contrasena: string = '';
     errorMensaje: string = '';
 
-    constructor(private loginServicio: LoginServicio, private router: Router, private cd: ChangeDetectorRef) {}
+    constructor(private administradorServicio: AdministradorServicio, private router: Router, private cd: ChangeDetectorRef) {}
 
     togglePass() {
         this.mostrarPass = !this.mostrarPass;
     }
 
     manejarLogin() {
-        this.loginServicio.login(this.usuario, this.contrasena).subscribe({
-            next: (res) => {
-            console.log('Login exitoso', res);
-            this.router.navigate(['/dashboard']);
-            },
-            error: (err) => {
-
-            this.errorMensaje = 'Usuario o contraseña incorrectos';
-
-            this.cd.detectChanges();
-            
-            console.error('Error en login:', err);
-            }
-        });
+  this.administradorServicio.login(this.usuario, this.contrasena).subscribe({
+    next: (res: any) => {
+      console.log('Login exitoso', res);
+      localStorage.setItem('token', res.token ?? 'logueado');
+      this.router.navigate(['/dashboard']);
+    },
+    error: (err: any) => {
+      this.errorMensaje = 'Usuario o contraseña incorrectos';
+      this.cd.detectChanges();
+      console.error('Error en login:', err);
     }
+  });
+}
 }
