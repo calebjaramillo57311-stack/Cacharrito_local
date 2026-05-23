@@ -21,8 +21,8 @@ import com.cacharrito.backend.repositorio.UsuarioRepositorio;
 import com.cacharrito.backend.repositorio.ViajeRepositorio;
 
 @RestController
-@RequestMapping("reserva/") 
-@CrossOrigin(origins= "http://localhost:4200/") 
+@RequestMapping("reserva/")
+@CrossOrigin(origins= "http://localhost:4200/")
 public class ReservaControlador {
     
     @Autowired

@@ -12,7 +12,10 @@ export class ReservaServicio {
   private guardarR = 'http://localhost:8080/reserva/guardareserva/';
   
   private listarR = 'http://localhost:8080/reserva/listarReservas/';
-  
+
+  private listarT = 'http://localhost:8080/reserva/listarTodo/';
+
+  private cancelarR = 'http://localhost:8080/reserva/actualizarReserva/';
 
   guardarReserva(reserva: ReservaEntidad): Observable<any> {
     return this.httpCliente.post(this.guardarR, reserva);
@@ -20,5 +23,13 @@ export class ReservaServicio {
   buscarPorCedula(cedula: string): Observable<any> {
     const params = new HttpParams().set('cedula', cedula)
   return this.httpCliente.get<ReservaEntidad>(this.listarR, {params});
+}
+
+  listarTodo(): Observable<ReservaEntidad[]> {
+  return this.httpCliente.get<ReservaEntidad[]>(this.listarT);
+}
+
+  cancelarReserva(reserva: ReservaEntidad): Observable<any> {
+  return this.httpCliente.put(this.cancelarR, reserva);
 }
 }

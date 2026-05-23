@@ -1,0 +1,113 @@
+<div class="page-wrapper">
+    <div class="header">
+        <div>
+            <h1 class="title">Gestión de Reservas</h1>
+            <p class="subtitle">Administración manual de reservas, modificaciones y cancelaciones.</p>
+        </div>
+        <button class="btn-nueva-reserva">Nueva Reserva</button>
+    </div>
+    <div class="card">
+        <div class="filters">
+            <div class="filter-group">
+                <label class="filter-label">Cédula</label>
+                <input type="text" class="filter-input" placeholder="Ej: 12345678" [(ngModel)]="cedulaFiltro" />
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Fecha</label>
+                <input type="date" class="filter-input" [(ngModel)]="fechaFiltro" />
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Estado</label>
+                <div class="select-wrapper">
+                    <select class="filter-input" [(ngModel)]="estadoFiltro">
+                        <option value="">Todos los estados</option>
+                        <option value="confirmado">Confirmado</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-filtrar" (click)="filtrar()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                Filtrar Resultados
+            </button>
+        </div>
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>NOMBRE DEL PASAJERO</th>
+                    <th>DESTINO</th>
+                    <th>FECHA/HORA</th>
+                    <th>AUTOMÓVIL</th>
+                    <th>ESTADO</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (r of reservasFiltradas; track r.idReserva) {
+                <tr>
+                    <td class="pasajero-nombre">{{ r.usuario?.nombre }} {{ r.usuario?.apellidos }}</td>
+                    <td>{{ r.viaje?.destino }}</td>
+                    <td class="fecha-hora">
+                        <strong>{{ r.viaje?.fechaSalida | date:'dd MMM yyyy':'UTC' }}</strong>
+                        <span>{{ formatearHora(r.viaje?.horaSalida) }}</span>
+                    </td>
+                    <td>#{{ r.puestoAsignado }}</td>
+                    <td>
+                        <span class="badge"
+                            [ngClass]="{
+                            'confirmado': r.estado === 'confirmado',
+                            'pendiente':  r.estado === 'pendiente',
+                            'cancelado':  r.estado === 'cancelado'
+                            }">
+                            {{ r.estado | titlecase }}
+                        </span>
+                    </td>
+                    <td class="acciones">
+                    <button class="btn-modificar" (click)="abrirModal(r)">MODIFICAR</button>
+                    <button class="btn-cancelar" (click)="cancelar(r)">CANCELAR</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <p class="resultados-info">Mostrando {{ reservasFiltradas.length }} resultados</p>
+    </div>
+</div>
+@if (mostrarModal && reservaSeleccionada) {
+<div class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+        <h2 class="modal-titulo">Registrar Pago</h2>
+        <div class="modal-fila">
+            <span class="modal-label">Pasajero</span>
+            <span>{{ reservaSeleccionada.usuario?.nombre }} {{ reservaSeleccionada.usuario?.apellidos }}</span>
+        </div>
+        <div class="modal-fila">
+            <span class="modal-label">Destino</span>
+            <span>{{ reservaSeleccionada.viaje?.destino }}</span>
+        </div>
+        <div class="modal-fila">
+            <span class="modal-label">Fecha de salida</span>
+            <span>{{ reservaSeleccionada.viaje?.fechaSalida | date:'dd MMM yyyy':'UTC' }}</span>
+        </div>
+        <div class="modal-fila">
+            <span class="modal-label">Hora de salida</span>
+            <span>{{ formatearHora(reservaSeleccionada.viaje?.horaSalida) }}</span>
+        </div>
+        <div class="modal-fila">
+            <span class="modal-label">Puesto</span>
+            <span>#{{ reservaSeleccionada.puestoAsignado }}</span>
+        </div>
+        <div class="modal-fila modal-total">
+            <span class="modal-label">Total a pagar</span>
+            <span class="modal-precio">${{ reservaSeleccionada.totalPagar | number }}</span>
+        </div>
+        <div class="modal-acciones">
+            <button class="btn-cancelar" (click)="cerrarModal()">Cerrar</button>
+            <button class="btn-modificar" (click)="confirmarPago()">Confirmar Pago</button>
+        </div>
+    </div>
+</div>
+}
