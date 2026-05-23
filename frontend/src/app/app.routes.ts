@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { viajesDisponibles } from './viajes-disponibles/viajes-disponibles';
 import { Reservar } from './reservar/reservar';
-import { ReservaConfirmacion } from './reservaconfirmacion/reservaconfirmacion';
+import { ReservaConfirmacion } from './reserva-confirmacion/reserva-confirmacion';
 import { DashboardAdmin } from './dashboard-admin/dashboard-admin';
 import { AdministradorEntidad } from './entidades/administrador-entidad';
 import { login } from './login/login';

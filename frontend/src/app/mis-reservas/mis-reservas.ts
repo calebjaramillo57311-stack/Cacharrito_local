@@ -1,8 +1,8 @@
 import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Reserva } from '../entidades/reserva';
-import { ReservaService } from '../servicio/reserva';
+import { ReservaEntidad } from '../entidades/reserva-entidad';
+import { ReservaServicio } from '../servicio/reserva-servicio';
 
 @Component({
   selector: 'app-mis-reservas',
@@ -12,10 +12,10 @@ import { ReservaService } from '../servicio/reserva';
 })
 export class MisReservas {
 
-  private reservaService = inject(ReservaService);
+  private reservaServicio = inject(ReservaServicio);
 
   busquedaId: string = '';
-  reservas = signal<Reserva[]>([]);
+  reservas = signal<ReservaEntidad[]>([]);
   cargando = signal(false);
   buscado = signal(false);
 
@@ -25,8 +25,8 @@ export class MisReservas {
     this.cargando.set(true);
     this.buscado.set(false);
   
-    this.reservaService.buscarPorCedula(this.busquedaId).subscribe({
-      next: (resultado: Reserva[]) => {
+    this.reservaServicio.buscarPorCedula(this.busquedaId).subscribe({
+      next: (resultado: ReservaEntidad[]) => {
         console.log(resultado);
         this.reservas.set(resultado ?? []);
         this.buscado.set(true);

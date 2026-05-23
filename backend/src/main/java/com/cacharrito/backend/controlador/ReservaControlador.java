@@ -43,18 +43,18 @@ public class ReservaControlador {
     // Guardar reserva
     @PostMapping("guardareserva/")
     public Reserva guardarReserva(@RequestBody Reserva reserva) {
-        repoUsuario.save(reserva.getUsuario());
+    repoUsuario.save(reserva.getUsuario());
 
-        Reserva guardada = repoReserva.save(reserva);
+    Reserva guardada = repoReserva.save(reserva);
 
-        Viaje viaje = reserva.getViaje();
-        if (viaje != null && viaje.getPuestosDisponibles() > 0) {
-            viaje.setPuestosDisponibles(viaje.getPuestosDisponibles() - 1);
-            repoViaje.save(viaje);
-        }
-
-        return guardada;
+    Viaje viaje = reserva.getViaje();
+    if (viaje != null && viaje.getPuestosDisponibles() > 0) {
+        viaje.setPuestosDisponibles(viaje.getPuestosDisponibles() - 1);
+        repoViaje.save(viaje);
     }
+
+    return guardada;
+}
     
     // Buscar reserva por cedula
     @GetMapping("listarReservas/")

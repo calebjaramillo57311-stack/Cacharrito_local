@@ -1,23 +1,24 @@
 import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Reserva } from '../entidades/reserva';
+import { ReservaEntidad } from '../entidades/reserva-entidad';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ReservaService {
+export class ReservaServicio {
   constructor(private httpCliente: HttpClient){}
   
   private guardarR = 'http://localhost:8080/reserva/guardareserva/';
+  
   private listarR = 'http://localhost:8080/reserva/listarReservas/';
   
 
-  guardarReserva(reserva: Reserva): Observable<any> {
+  guardarReserva(reserva: ReservaEntidad): Observable<any> {
     return this.httpCliente.post(this.guardarR, reserva);
   }
   buscarPorCedula(cedula: string): Observable<any> {
     const params = new HttpParams().set('cedula', cedula)
-  return this.httpCliente.get<Reserva>(this.listarR, {params});
+  return this.httpCliente.get<ReservaEntidad>(this.listarR, {params});
 }
 }

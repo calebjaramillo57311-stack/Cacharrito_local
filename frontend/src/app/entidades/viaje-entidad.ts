@@ -1,6 +1,6 @@
 import { Automovil } from "./automovil";
 
-export class Viaje {
+export class ViajeEntidad {
     idViaje: number;
     destino: string;
     fechaSalida: Date;
