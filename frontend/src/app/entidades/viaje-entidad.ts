@@ -1,11 +1,11 @@
-import { Automovil } from "./automovil";
+import { AutomovilEntidad } from "./automovil-entidad";
 
-export class Viaje {
+export class ViajeEntidad {
     idViaje: number;
     destino: string;
     fechaSalida: Date;
     horaSalida: string;
     puestosDisponibles: number;
     precioViaje: number;
-    automovil: Automovil;
+    automovil: AutomovilEntidad;
 }

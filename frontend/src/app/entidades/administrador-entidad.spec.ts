@@ -1,7 +1,7 @@
-import { Administrador } from './administrador-servicio';
+import { AdministradorEntidad } from './administrador-entidad';
 
 describe('Administrador', () => {
   it('should create an instance', () => {
-    expect(new Administrador()).toBeTruthy();
+    expect(new AdministradorEntidad()).toBeTruthy();
   });
 });

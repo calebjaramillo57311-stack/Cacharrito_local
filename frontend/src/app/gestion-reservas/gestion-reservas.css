@@ -1,0 +1,248 @@
+
+.page-wrapper {
+    background-color: #f1f5f9;
+    min-height: 100vh;
+    padding: 32px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #1e293b;
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    color: #0f172a;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+}
+
+.btn-nueva-reserva {
+    padding: 10px 20px;
+    border: 1.5px solid #1e293b;
+    background: #fff;
+    color: #1e293b;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.btn-nueva-reserva:hover {
+    background: #f8fafc;
+}
+
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+}
+
+:host {
+    display: block;
+    position: relative;
+}
+
+.filters {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.filter-input {
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #475569;
+    background: #fff;
+    min-width: 160px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.filter-input:focus {
+    border-color: #94a3b8;
+}
+
+.select-wrapper select {
+    appearance: none;
+    padding-right: 28px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+}
+
+.btn-filtrar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 20px;
+    height: 38px;
+    background: #1e293b;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.btn-filtrar:hover {
+    background: #0f172a;
+}
+
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla thead tr {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tabla th {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-align: left;
+    padding: 0 12px 12px 12px;
+    letter-spacing: 0.05em;
+}
+
+.tabla td {
+    padding: 16px 12px;
+    font-size: 14px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+.tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.pasajero-nombre {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.fecha-hora {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fecha-hora strong {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.fecha-hora span {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.badge.confirmado {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.badge.pendiente {
+    background: #fef9c3;
+    color: #a16207;
+}
+
+.badge.cancelado {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.acciones {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-modificar {
+    padding: 6px 14px;
+    background: #1e293b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: background 0.2s;
+}
+
+.btn-modificar:hover {
+    background: #0f172a;
+}
+
+.btn-cancelar {
+    padding: 6px 14px;
+    background: #fff;
+    color: #ef4444;
+    border: 1.5px solid #ef4444;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-cancelar:hover {
+    background: #fef2f2;
+}
+
+.resultados-info {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 16px 0 0 0;
+}

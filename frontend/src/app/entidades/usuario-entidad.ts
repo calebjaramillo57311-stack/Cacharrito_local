@@ -1,4 +1,4 @@
-export class Usuario {
+export class UsuarioEntidad  {
     cedula: string;
     nombre: string;
     apellidos: string;

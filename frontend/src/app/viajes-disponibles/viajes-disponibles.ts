@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Viaje } from '../entidades/viaje';
-import { viajeService } from '../servicio/viaje';
+import { ViajeEntidad } from '../entidades/viaje-entidad';
+import { ViajeServicio} from '../servicio/viaje-servicio';
 import { registerLocaleData, DecimalPipe } from '@angular/common';
 import localeEs from '@angular/common/locales/es-CO';
 import { Router } from '@angular/router';
@@ -17,14 +17,14 @@ registerLocaleData(localeEs);
 export class viajesDisponibles {
 
   constructor(
-      private viajeService: viajeService,
+      private viajeServicio: ViajeServicio,
       private router: Router
     ) {}
 
   destino: string = "";
   fecha: string = "";
   buscado = signal(false);
-  viajesEncontrados = signal<Viaje[]>([]);
+  viajesEncontrados = signal<ViajeEntidad[]>([]);
 
   buscar() {
     if (!this.destino || !this.fecha) {
@@ -32,7 +32,7 @@ export class viajesDisponibles {
       return;
     }
     
-    this.viajeService.consultarViaje(this.destino, this.fecha).subscribe(dato => {
+    this.viajeServicio.consultarViaje(this.destino, this.fecha).subscribe(dato => {
       this.viajesEncontrados.set(dato);
       this.buscado.set(true);
       console.log(dato);

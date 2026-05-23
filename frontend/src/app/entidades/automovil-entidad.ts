@@ -1,4 +1,4 @@
-export class Automovil {
+export class AutomovilEntidad {
     numeroAutomovil: number;
     cantidadPuestos: number;
 }

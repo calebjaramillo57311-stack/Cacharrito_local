@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Automovil } from '../entidades/automovil';
+import { AutomovilEntidad } from '../entidades/automovil-entidad';
 
 @Component({
   selector: 'app-automoviles',

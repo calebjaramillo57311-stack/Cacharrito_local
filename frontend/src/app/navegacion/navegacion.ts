@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navegacion',
@@ -8,17 +9,24 @@ import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/rou
   templateUrl: './navegacion.html',
   styleUrl: './navegacion.css',
 })
-export class Navegacion {
+export class Navegacion implements OnInit {
   
-  constructor(public router: Router) {}
+  constructor(public router: Router, private cdr: ChangeDetectorRef) {}
 
-    get estaLogueado(): boolean {
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.cdr.detectChanges();
+    });
+  }
+
+  get estaLogueado(): boolean {
     return !!localStorage.getItem('token');
-}
+  }
 
   cerrarSesion() {
     localStorage.removeItem('token');
     this.router.navigate(['/viajesDisponibles']);
   }
-  }
-
+}
