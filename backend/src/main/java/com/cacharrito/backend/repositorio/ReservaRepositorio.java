@@ -15,4 +15,6 @@ public interface ReservaRepositorio  extends JpaRepository<Reserva,Integer> {
 
     @Query("SELECT r FROM Reserva r WHERE DATE(r.fechaReserva) = DATE(:fecha)")
     List<Reserva> listarPorDia(@Param("fecha") String fecha);
+
+    public List<Reserva> findByViaje_IdViaje(int idViaje);
 }

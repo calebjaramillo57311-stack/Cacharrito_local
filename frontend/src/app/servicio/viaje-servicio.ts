@@ -11,6 +11,10 @@ export class ViajeServicio {
 
   private listarV = 'http://localhost:8080/viaje/listarViajes/';
   private obtenerV = 'http://localhost:8080/viaje/buscarViaje/';
+  private listarTodo = 'http://localhost:8080/viaje/listarTodo/';
+  private guardarV = 'http://localhost:8080/viaje/guardarViaje/';
+  private actualizarV = 'http://localhost:8080/viaje/actualizarViaje/';
+  private eliminarV = 'http://localhost:8080/viaje/eliminarViaje/';
 
   consultarViaje(destino: string, fecha: string) : Observable<ViajeEntidad[]>  {
     const params = new HttpParams().set('destino', destino).set('fecha', fecha);
@@ -20,5 +24,22 @@ export class ViajeServicio {
   BuscarViaje(idViaje: string) : Observable<ViajeEntidad>  {
     const params = new HttpParams().set('idViaje', idViaje)
     return this.httpCliente.get<ViajeEntidad>(this.obtenerV, {params});
+  }
+  
+  ListarViajes() : Observable<any> {
+    return this.httpCliente.get(this.listarTodo);
+  }
+
+  GuardarViaje(viaje: ViajeEntidad): Observable<any> {
+    return this.httpCliente.post(this.guardarV, viaje);
+  }
+
+  actualizarViaje(viaje: ViajeEntidad): Observable<any> {
+    return this.httpCliente.put(this.actualizarV, viaje);
+  }
+
+  EliminarViaje(idViaje: number): Observable<any> {
+    const params = new HttpParams().set('idViaje', idViaje.toString());
+    return this.httpCliente.delete(this.eliminarV, { params });
   }
 }
