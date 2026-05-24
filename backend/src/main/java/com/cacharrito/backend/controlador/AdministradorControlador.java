@@ -4,7 +4,7 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.Optional;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,11 +21,9 @@ import com.cacharrito.backend.repositorio.AdministradorRepositorio;
 @CrossOrigin(origins = "http://localhost:4200")
 public class AdministradorControlador {
 
-    private final AdministradorRepositorio AdministradorRepositorio;
+    @Autowired
+    private AdministradorRepositorio administradorRepositorio;
 
-    public AdministradorControlador(AdministradorRepositorio administradorRepositorio) {
-        this.AdministradorRepositorio = administradorRepositorio;
-    }
 
 @PostMapping("/registro")
 public ResponseEntity<?> registro(@RequestBody Map<String, String> body) {
@@ -39,7 +37,7 @@ public ResponseEntity<?> registro(@RequestBody Map<String, String> body) {
     admin.setUsuario(usuarioCodificado);
     admin.setContrasena(passwordCodificado);
 
-    AdministradorRepositorio.save(admin);
+    administradorRepositorio.save(admin);
 
     return ResponseEntity.ok("Administrador registrado correctamente");
 }
@@ -56,7 +54,7 @@ public ResponseEntity<?> login(@RequestHeader("Authorization") String authHeader
 
         String usuarioCodificado = Base64.getEncoder().encodeToString(username.getBytes());
         String passwordCodificado = Base64.getEncoder().encodeToString(password.getBytes());
-        Optional<Administrador> admin = AdministradorRepositorio
+        Optional<Administrador> admin = administradorRepositorio
         .findByUsuarioAndContrasena(usuarioCodificado, passwordCodificado);
 
         if (admin.isPresent()) {
