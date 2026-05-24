@@ -122,8 +122,4 @@ public class Reserva {
     public void setAdministrador(Administrador administrador) {
         this.administrador = administrador;
     }
-
-    
-
-
 }

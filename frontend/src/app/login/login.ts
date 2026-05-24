@@ -24,17 +24,19 @@ export class login{
     }
 
     manejarLogin() {
-  this.administradorServicio.login(this.usuario, this.contrasena).subscribe({
+    this.administradorServicio.login(this.usuario, this.contrasena).subscribe({
     next: (res: any) => {
-      console.log('Login exitoso', res);
-      localStorage.setItem('token', res.token ?? 'logueado');
+
+      const adminObj = typeof res === 'string' ? JSON.parse(res) : res;
+      localStorage.setItem('admin', JSON.stringify(adminObj));
+
       this.router.navigate(['/dashboard']);
-    },
-    error: (err: any) => {
-      this.errorMensaje = 'Usuario o contraseña incorrectos';
-      this.cd.detectChanges();
-      console.error('Error en login:', err);
-    }
-  });
-}
+      },
+      error: (err: any) => {
+        this.errorMensaje = 'Usuario o contraseña incorrectos';
+        this.cd.detectChanges();
+        console.error('Error en login:', err);
+      }
+    });
+  }
 }

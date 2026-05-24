@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ReservaServicio } from '../servicio/reserva-servicio';
 import { ReservaEntidad } from '../entidades/reserva-entidad';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-gestion-reservas',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './gestion-reservas.html',
   styleUrl: './gestion-reservas.css'
 })

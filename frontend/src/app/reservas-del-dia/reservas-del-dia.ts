@@ -26,6 +26,7 @@ export class ReservasDelDia implements OnInit {
   ) {}
 
   ngOnInit() {
+    localStorage.setItem('token', 'admin')
     if (isPlatformBrowser(this.detector)) {
       const hoy = new Date().toLocaleDateString('sv-SE');
       this.administradorServicio.listarReservasDia(hoy).subscribe( dato => {

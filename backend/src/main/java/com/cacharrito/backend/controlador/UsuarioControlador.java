@@ -8,7 +8,7 @@ import com.cacharrito.backend.modelo.Usuario;
 import com.cacharrito.backend.repositorio.UsuarioRepositorio;
 
 @RestController
-@RequestMapping("/usuario/")
+@RequestMapping("/usuario")
 @CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioControlador {
 
@@ -16,10 +16,8 @@ public class UsuarioControlador {
     private UsuarioRepositorio repoUsuario;
 
     // Buscar usuario por cédula
-    @GetMapping("buscar")
-public ResponseEntity<Usuario> buscarCedula(@RequestParam String cedula) {
-    return repoUsuario.findById(cedula)
-        .map(ResponseEntity::ok)
-        .orElse(ResponseEntity.notFound().build());
-}
+    @GetMapping("/buscar")
+    public ResponseEntity<Usuario> buscarCedula(@RequestParam String cedula) {
+        return ResponseEntity.ok(repoUsuario.findById(cedula).orElse(null));
+    }
 }

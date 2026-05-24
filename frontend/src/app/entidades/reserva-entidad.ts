@@ -1,4 +1,4 @@
-import { AdministradorServicio } from "../servicio/administrador-servicio";
+import { AdministradorEntidad } from "../entidades/administrador-entidad";
 import { UsuarioEntidad } from "./usuario-entidad";
 import { ViajeEntidad } from "./viaje-entidad";
 
@@ -9,6 +9,6 @@ export class ReservaEntidad {
     puestoAsignado: number;
     totalPagar: number;
     viaje: ViajeEntidad;
-    administrador: AdministradorServicio;
+    administrador: AdministradorEntidad;
     usuario: UsuarioEntidad;
 }

@@ -40,6 +40,7 @@ export class Reservar implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.setItem('token', 'admin')
     if (isPlatformBrowser(this.detector)) {
       const id = this.route.snapshot.paramMap.get('id')!;
       this.viajeServicio.BuscarViaje(id).subscribe(dato => {
@@ -54,13 +55,24 @@ export class Reservar implements OnInit {
     if (!cedula) return;
 
     this.usuarioServicio.buscarCedula(cedula).subscribe({
-      next: (usuario: UsuarioEntidad) => {
+      next: (usuario: UsuarioEntidad | null) => {
+        if (!usuario) {
+          this.reserva.usuario = new UsuarioEntidad();
+          this.reserva.usuario.cedula = cedula;
+          this.cdr.detectChanges();
+          return;
+        }
+      
+        if (usuario.fechaNacimiento) {
+          const d = new Date(usuario.fechaNacimiento);
+          const year = d.getUTCFullYear();
+          const month = String(d.getUTCMonth() + 1).padStart(2, '0');
+          const day = String(d.getUTCDate()).padStart(2, '0');
+        
+          usuario.fechaNacimiento = `${year}-${month}-${day}` as any;
+        }
+      
         this.reserva.usuario = usuario;
-        this.cdr.detectChanges();
-      },
-      error: () => {
-        this.reserva.usuario = new UsuarioEntidad();
-        this.reserva.usuario.cedula = cedula;
         this.cdr.detectChanges();
       }
     });
@@ -74,21 +86,29 @@ export class Reservar implements OnInit {
     }
 
     const viaje = this.viajeSeleccionado()!;
-
-    const fechaNac = new Date(u.fechaNacimiento);
-    u.fechaNacimiento = fechaNac.toISOString().split('T')[0];
-
     this.reserva.fechaReserva   = new Date().toISOString().split('T')[0];
     this.reserva.estado         = 'pendiente';
     this.reserva.puestoAsignado = Math.floor(Math.random() * viaje.automovil.cantidadPuestos) + 1;
     this.reserva.totalPagar     = viaje.precioViaje;
     this.reserva.viaje          = viaje;
-    this.reserva.administrador  = null;
 
-    this.reservaServicio.guardarReserva(this.reserva).subscribe(dato => {
-  this.router.navigate(['/reservaConfirmacion'], {
-    state: { reserva: dato }
-  });
-});
-}
+    if (isPlatformBrowser(this.detector)) {
+      const adminData = localStorage.getItem('admin');
+      if (adminData) {
+        this.reserva.administrador = JSON.parse(adminData);
+      } else {
+        this.reserva.administrador = null;
+      }
+    }
+    
+    this.reservaServicio.guardarReserva(this.reserva).subscribe({
+      next: (dato) => {
+        console.log(dato)
+        this.router.navigate(['/reservaConfirmacion'], {
+          state: { reserva: dato }
+        });
+      },
+      error: (e) => console.error('Error del backend:', e.error)
+    });
+  }
 }
