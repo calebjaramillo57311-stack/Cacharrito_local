@@ -1,0 +1,93 @@
+<div class="page-wrapper">
+    <div class="header">
+        <div>
+            <button class="btn-atras" onclick="history.back()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                </svg>
+            </button>
+            <h1 class="title">Reservas del Día</h1>
+            <p class="subtitle">Monitoreo de salidas programadas para el día de hoy.</p>
+        </div>
+        <button class="btn-nueva-reserva">+ Nueva Reserva</button>
+    </div>
+
+    <div class="card">
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>NOMBRE DEL PASAJERO</th>
+                    <th>DESTINO</th>
+                    <th>FECHA/HORA</th>
+                    <th>AUTOMÓVIL</th>
+                    <th>ESTADO</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (r of reservas; track r.idReserva) {
+                <tr>
+                    <td class="pasajero-nombre">{{ r.usuario.nombre }} {{ r.usuario.apellidos }}</td>
+                    <td>{{ r.viaje.destino }}</td>
+                    <td class="fecha-hora">
+                        <strong>{{ r.viaje.fechaSalida | date:'dd MMM yyyy':'UTC' }}</strong>
+                        <span>{{ formatearHora(r.viaje.horaSalida) }}</span>
+                    </td>
+                    <td>#{{ r.viaje.automovil.numeroAutomovil }}</td>
+                    <td>
+                        <span class="badge"
+                            [ngClass]="{
+                            'confirmado': r.estado.toLowerCase() === 'confirmada' || r.estado.toLowerCase() === 'confirmado',
+                            'pendiente':  r.estado.toLowerCase() === 'pendiente',
+                            'cancelado':  r.estado.toLowerCase() === 'cancelada' || r.estado.toLowerCase() === 'cancelado'
+                            }">
+                            {{ r.estado | titlecase }}
+                        </span>
+                    </td>
+                    <td class="acciones">
+                        <button class="btn-modificar" (click)="abrirModal(r)">MODIFICAR</button>
+                        <button class="btn-eliminar" (click)="eliminar(r)">ELIMINAR</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (mostrarModal && reservaSeleccionada) {
+<div class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+        <h2 class="modal-titulo">Modificar estado de Reserva</h2>
+        <div class="modal-fila">
+            <span class="modal-label">Pasajero</span>
+            <span>{{ reservaSeleccionada.usuario.nombre }} {{ reservaSeleccionada.usuario.apellidos }}</span>
+        </div>
+        <div class="modal-fila">
+            <span class="modal-label">Destino</span>
+            <span>{{ reservaSeleccionada.viaje.destino }}</span>
+        </div>
+        <div class="modal-fila">
+            <span class="modal-label">Fecha de salida</span>
+            <span>{{ reservaSeleccionada.viaje.fechaSalida | date:'dd MMM yyyy':'UTC' }}</span>
+        </div>
+        <div class="modal-fila">
+            <span class="modal-label">Hora de salida</span>
+            <span>{{ formatearHora(reservaSeleccionada.viaje.horaSalida) }}</span>
+        </div>
+        <div class="modal-fila">
+            <span class="modal-label">Puesto</span>
+            <span>#{{ reservaSeleccionada.puestoAsignado }}</span>
+        </div>
+        <div class="modal-fila modal-total">
+            <span class="modal-label">Total a pagar</span>
+            <span class="modal-precio">${{ reservaSeleccionada.totalPagar | number }}</span>
+        </div>
+        <div class="modal-acciones">
+            <button class="btn-cerrar" (click)="cerrarModal()">Cerrar</button>
+            <button class="btn-cancelar" (click)="cancelarDesdeModal()">Cancelar Reserva</button>
+            <button class="btn-pago" (click)="confirmarPago()">Registrar Pago</button>
+        </div>
+    </div>
+</div>
+}

@@ -7,6 +7,7 @@ import { AdministradorEntidad } from './entidades/administrador-entidad';
 import { login } from './login/login';
 import { MisReservas } from './mis-reservas/mis-reservas';
 import { GestionReservas } from './gestion-reservas/gestion-reservas';
+import { ReservasDelDia } from './reservas-del-dia/reservas-del-dia';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'viajesDisponibles', pathMatch: 'full' },
@@ -16,5 +17,6 @@ export const routes: Routes = [
     { path: 'login', component: login },
     { path: 'dashboard', component: DashboardAdmin },
     { path: 'misReservas', component: MisReservas},
-    { path: 'dashboard/gestionReservas', component: GestionReservas },
+    { path: 'gestionReservas', component: GestionReservas },
+    { path: 'reservasDelDia', component: ReservasDelDia }
 ];
