@@ -66,7 +66,7 @@ public class AdministradorControlador {
             .findByUsuarioAndContrasena(usuarioCodificado, passwordCodificado);
 
             if (admin.isPresent()) {
-                return ResponseEntity.ok("Login exitoso");
+                return ResponseEntity.ok(admin.get());
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
             }

@@ -12,6 +12,13 @@ export class ReservaConfirmacion implements OnInit {
 
   reserva: any = null;
 
+  get esAdmin(): boolean {
+    if (typeof window !== 'undefined') {
+      return !!localStorage.getItem('admin');
+    }
+    return false;
+  }
+
   constructor(private router: Router) {}
 
   ngOnInit() {
@@ -22,7 +29,11 @@ export class ReservaConfirmacion implements OnInit {
   }
 
   irAMisViajes() {
-    this.router.navigate(['/misReservas']);
+    if (this.esAdmin) {
+      this.router.navigate(['/gestionReservas']);
+    } else {
+      this.router.navigate(['/misReservas']);
+    }
   }
 
   nuevaReserva() {

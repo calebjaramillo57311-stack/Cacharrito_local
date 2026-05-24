@@ -22,11 +22,16 @@ export class Navegacion implements OnInit {
   }
 
   get estaLogueado(): boolean {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('token') || !!localStorage.getItem('admin');
+  }
+
+  get esAdmin(): boolean {
+    return !!localStorage.getItem('admin');
   }
 
   cerrarSesion() {
     localStorage.removeItem('token');
+    localStorage.removeItem('admin');
     this.router.navigate(['/viajesDisponibles']);
   }
 }

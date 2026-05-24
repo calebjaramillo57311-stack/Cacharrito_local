@@ -10,13 +10,9 @@ export class ReservaServicio {
   constructor(private httpCliente: HttpClient){}
   
   private guardarR = 'http://localhost:8080/reserva/guardareserva/';
-  
   private listarR = 'http://localhost:8080/reserva/listarReservas/';
-
   private listarT = 'http://localhost:8080/reserva/listarTodo/';
-
   private cancelarR = 'http://localhost:8080/reserva/actualizarReserva/';
-
   private eliminarR = 'http://localhost:8080/reserva/eliminarReserva/';
 
   guardarReserva(reserva: ReservaEntidad): Observable<any> {
@@ -24,18 +20,18 @@ export class ReservaServicio {
   }
   buscarPorCedula(cedula: string): Observable<any> {
     const params = new HttpParams().set('cedula', cedula)
-  return this.httpCliente.get<ReservaEntidad>(this.listarR, {params});
-}
+    return this.httpCliente.get<ReservaEntidad>(this.listarR, {params});
+  }
 
   listarTodo(): Observable<ReservaEntidad[]> {
-  return this.httpCliente.get<ReservaEntidad[]>(this.listarT);
-}
+    return this.httpCliente.get<ReservaEntidad[]>(this.listarT);
+  }
 
   cancelarReserva(reserva: ReservaEntidad): Observable<any> {
-  return this.httpCliente.put(this.cancelarR, reserva);
-}
+    return this.httpCliente.put(this.cancelarR, reserva);
+  }
 
   eliminarReserva(idReserva: number): Observable<any> {
-  return this.httpCliente.delete(this.eliminarR, { body: idReserva });
-}
+    return this.httpCliente.delete(this.eliminarR, { body: idReserva });
+  }
 }

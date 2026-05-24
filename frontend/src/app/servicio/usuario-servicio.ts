@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UsuarioEntidad } from '../entidades/usuario-entidad';
 
@@ -6,12 +6,13 @@ import { UsuarioEntidad } from '../entidades/usuario-entidad';
   providedIn: 'root',
 })
 export class UsuarioServicio {
-  private buscarU = 'http://localhost:8080/usuario/';
+  private buscarU = 'http://localhost:8080/usuario/buscar';
 
   constructor(private http: HttpClient) {}
 
   buscarCedula(cedula: string) {
-  return this.http.get<UsuarioEntidad>(`${this.buscarU}buscar?cedula=${cedula}`);
+    const params = new HttpParams().set('cedula', cedula)
+    return this.http.get<UsuarioEntidad>(this.buscarU, {params});
   }
 
 }
