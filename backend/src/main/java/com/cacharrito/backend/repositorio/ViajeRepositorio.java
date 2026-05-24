@@ -17,4 +17,7 @@ public interface ViajeRepositorio extends JpaRepository<Viaje, Integer>{
         public List<Viaje> listarViajes(@Param ("destino") String destino, @Param ("fecha") String fecha);
 
     List<Viaje> findByPuestosDisponiblesGreaterThan(int cantidad);
+
+    // Eliminar Automóvil
+    boolean existsByAutomovil_NumeroAutomovil(Integer numeroAutomovil);
 }

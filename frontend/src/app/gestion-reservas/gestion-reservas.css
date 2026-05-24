@@ -1,12 +1,4 @@
 
-.page-wrapper {
-    background-color: #f1f5f9;
-    min-height: 100vh;
-    padding: 32px;
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    color: #1e293b;
-}
-
 
 .header {
     display: flex;
