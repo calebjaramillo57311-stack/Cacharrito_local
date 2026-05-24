@@ -3,13 +3,13 @@ import { viajesDisponibles } from './viajes-disponibles/viajes-disponibles';
 import { Reservar } from './reservar/reservar';
 import { ReservaConfirmacion } from './reserva-confirmacion/reserva-confirmacion';
 import { DashboardAdmin } from './dashboard-admin/dashboard-admin';
-import { AdministradorEntidad } from './entidades/administrador-entidad';
 import { login } from './login/login';
 import { MisReservas } from './mis-reservas/mis-reservas';
 import { GestionReservas } from './gestion-reservas/gestion-reservas';
 import { ReservasDelDia } from './reservas-del-dia/reservas-del-dia';
 import { GestionAutomoviles } from './gestion-automoviles/gestion-automoviles';
 import { GestionViajes } from './gestion-viajes/gestion-viajes';
+import { PasajerosPorAutomovil } from './pasajeros-por-automovil/pasajeros-por-automovil';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'viajesDisponibles', pathMatch: 'full' },
@@ -22,5 +22,6 @@ export const routes: Routes = [
     { path: 'gestionReservas', component: GestionReservas },
     { path: 'reservasDelDia', component: ReservasDelDia },
     { path: 'gestionAutomoviles', component: GestionAutomoviles},
-    { path: 'gestionViajes', component: GestionViajes}
+    { path: 'gestionViajes', component: GestionViajes},
+    { path: 'pasajerosPorAutomovil', component: PasajerosPorAutomovil}
 ];

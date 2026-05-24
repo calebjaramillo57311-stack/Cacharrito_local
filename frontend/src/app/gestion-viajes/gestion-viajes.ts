@@ -18,10 +18,13 @@ export class GestionViajes implements OnInit {
   viaje: any = { automovil: {} };
   tipo: number = 1;
 
+  constructor (
+    private cdr: ChangeDetectorRef,
+    private viajeServicio: ViajeServicio,
+    private AutomovilServicio: AutomovilServicio,
+  ) {}
+
   private detector = inject(PLATFORM_ID);
-  private cdr = inject(ChangeDetectorRef);
-  private servicioViaje = inject(ViajeServicio);
-  private servicioAutomovil = inject(AutomovilServicio);
 
   ngOnInit() {
     localStorage.setItem('token', 'admin')
@@ -31,7 +34,7 @@ export class GestionViajes implements OnInit {
   }
 
   listarV() {
-    this.servicioViaje.ListarViajes().subscribe(dato => {
+    this.viajeServicio.ListarViajes().subscribe(dato => {
       this.viajes.set(dato);
       this.cdr.detectChanges();
     });
@@ -61,10 +64,10 @@ export class GestionViajes implements OnInit {
     }
 
     if (this.tipo === 1) {
-      this.servicioAutomovil.buscarAutomovil(this.viaje.automovil.numeroAutomovil).subscribe(automovilData => {
+      this.AutomovilServicio.buscarAutomovil(this.viaje.automovil.numeroAutomovil).subscribe(automovilData => {
         this.viaje.automovil = automovilData;
         this.viaje.puestosDisponibles = automovilData.cantidadPuestos;
-        this.servicioViaje.GuardarViaje(this.viaje).subscribe(() => {
+        this.viajeServicio.GuardarViaje(this.viaje).subscribe(() => {
           this.listarV();
           this.cerrarModal();
         });
@@ -73,7 +76,7 @@ export class GestionViajes implements OnInit {
         alert('No se encontró el automóvil con el número especificado.');
       });
     } else {
-      this.servicioViaje.actualizarViaje(this.viaje).subscribe(() => {
+      this.viajeServicio.actualizarViaje(this.viaje).subscribe(() => {
         this.listarV();
         this.cerrarModal();
       });
@@ -89,7 +92,7 @@ export class GestionViajes implements OnInit {
 
   eliminar(id: number) {
     if (confirm("¿Está seguro de eliminar este viaje?")) {
-      this.servicioViaje.EliminarViaje(id).subscribe(() => {
+      this.viajeServicio.EliminarViaje(id).subscribe(() => {
         this.listarV();
         this.cdr.detectChanges(); 
       });
@@ -105,7 +108,7 @@ export class GestionViajes implements OnInit {
       return;
     }
 
-    this.servicioViaje.BuscarViaje(id).subscribe(dato => {
+    this.viajeServicio.BuscarViaje(id).subscribe(dato => {
       if (dato) {
         this.viajes.set([dato]);
       } else {

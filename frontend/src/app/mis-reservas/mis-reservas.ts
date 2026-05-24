@@ -37,7 +37,7 @@ export class MisReservas {
           fechaSalida.setHours(0, 0, 0, 0);
 
           const noEsPasada = fechaSalida >= hoy;
-          const noCancelada = (reserva.estado || '').toUpperCase() !== 'CANCELADA';
+          const noCancelada = (reserva.estado || '').toLowerCase() !== 'cancelado';
 
           return noEsPasada && noCancelada;
         });
@@ -55,11 +55,10 @@ export class MisReservas {
   }
 
   cancelarReserva(reserva: ReservaEntidad): void {
-    const reservaActualizada = { ...reserva, estado: 'CANCELADA' };
+    const reservaActualizada = { ...reserva, estado: 'cancelado' };
 
     this.reservaServicio.cancelarReserva(reservaActualizada).subscribe({
       next: () => {
-        // Quita la reserva de la lista en pantalla inmediatamente
         this.reservas.update(lista =>
           lista.filter(r => r.idReserva !== reserva.idReserva)
         );

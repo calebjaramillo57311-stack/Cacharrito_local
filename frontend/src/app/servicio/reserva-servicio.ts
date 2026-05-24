@@ -14,6 +14,7 @@ export class ReservaServicio {
   private listarT = 'http://localhost:8080/reserva/listarTodo/';
   private cancelarR = 'http://localhost:8080/reserva/actualizarReserva/';
   private eliminarR = 'http://localhost:8080/reserva/eliminarReserva/';
+  private buscarPorA = 'http://localhost:8080/reserva/buscarPorAutomovil/';
 
   guardarReserva(reserva: ReservaEntidad): Observable<any> {
     return this.httpCliente.post(this.guardarR, reserva);
@@ -21,6 +22,11 @@ export class ReservaServicio {
   buscarPorCedula(cedula: string): Observable<any> {
     const params = new HttpParams().set('cedula', cedula)
     return this.httpCliente.get<ReservaEntidad>(this.listarR, {params});
+  }
+
+  buscarPorAutomovil(numeroAutomovil: string): Observable<ReservaEntidad[]> {
+    const params = new HttpParams().set('numeroAutomovil', numeroAutomovil);
+    return this.httpCliente.get<ReservaEntidad[]>(this.buscarPorA, { params });
   }
 
   listarTodo(): Observable<ReservaEntidad[]> {

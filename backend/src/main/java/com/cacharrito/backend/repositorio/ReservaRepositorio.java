@@ -17,4 +17,6 @@ public interface ReservaRepositorio  extends JpaRepository<Reserva,Integer> {
     List<Reserva> listarPorDia(@Param("fecha") String fecha);
 
     public List<Reserva> findByViaje_IdViaje(int idViaje);
+
+    public List<Reserva> findByViaje_Automovil_NumeroAutomovil(int numeroAutomovil);
 }

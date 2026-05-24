@@ -63,6 +63,12 @@ public class ReservaControlador {
         return r;
     }
 
+    // Buscar reservas por numero de automovil
+    @GetMapping("buscarPorAutomovil/")
+    public List<Reserva> buscarPorAutomovil(@RequestParam ("numeroAutomovil") int numeroAutomovil) {
+        return repoReserva.findByViaje_Automovil_NumeroAutomovil(numeroAutomovil);
+    }
+
     // Eliminar reserva
     @DeleteMapping("eliminarReserva/")
     public Optional<Reserva> eliminarReserva(@RequestBody int idReserva){
