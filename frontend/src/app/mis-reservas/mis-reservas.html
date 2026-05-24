@@ -72,8 +72,8 @@
                   </span>
                   <span class="badge rounded-pill px-3 py-1"
                     [ngClass]="{
-                      'bg-success text-white': reserva.estado.toUpperCase() === 'CONFIRMADA',
-                      'bg-warning text-dark': reserva.estado.toUpperCase() === 'PENDIENTE'
+                      'bg-success text-white': (reserva.estado || '').toUpperCase() === 'CONFIRMADA',
+                      'bg-warning text-dark': (reserva.estado || '').toUpperCase() === 'PENDIENTE'
                     }">
                     {{ reserva.estado }}
                   </span>
@@ -92,7 +92,6 @@
                     <span class="detalle-label">Salida</span>
                     <span class="detalle-valor">{{ formatearFecha(reserva.viaje.fechaSalida) }}</span>
                   </div>
-                  <!-- ✅ Agregado: número de automóvil -->
                   <div class="detalle-grupo">
                     <span class="detalle-label">Automóvil</span>
                     <span class="detalle-valor">{{ reserva.viaje.automovil.numeroAutomovil }}</span>
@@ -105,7 +104,10 @@
               </div>
 
               <div class="card-footer bg-transparent border-top-0 pt-0 px-4 pb-3">
-                <button class="btn btn-cancelar w-100">Cancelar</button>
+                <!-- ✅ Botón conectado: pasa la reserva completa para el PUT -->
+                <button class="btn btn-cancelar w-100" (click)="cancelarReserva(reserva)">
+                  Cancelar
+                </button>
               </div>
             </div>
           </div>

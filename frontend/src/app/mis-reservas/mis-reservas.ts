@@ -37,7 +37,7 @@ export class MisReservas {
           fechaSalida.setHours(0, 0, 0, 0);
 
           const noEsPasada = fechaSalida >= hoy;
-          const noCancelada = reserva.estado?.toUpperCase() !== 'CANCELADA';
+          const noCancelada = (reserva.estado || '').toUpperCase() !== 'CANCELADA';
 
           return noEsPasada && noCancelada;
         });
@@ -50,6 +50,22 @@ export class MisReservas {
         this.reservas.set([]);
         this.buscado.set(true);
         this.cargando.set(false);
+      }
+    });
+  }
+
+  cancelarReserva(reserva: ReservaEntidad): void {
+    const reservaActualizada = { ...reserva, estado: 'CANCELADA' };
+
+    this.reservaServicio.cancelarReserva(reservaActualizada).subscribe({
+      next: () => {
+        // Quita la reserva de la lista en pantalla inmediatamente
+        this.reservas.update(lista =>
+          lista.filter(r => r.idReserva !== reserva.idReserva)
+        );
+      },
+      error: () => {
+        alert('No se pudo cancelar la reserva. Intenta de nuevo.');
       }
     });
   }
