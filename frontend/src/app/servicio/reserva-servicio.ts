@@ -17,6 +17,8 @@ export class ReservaServicio {
 
   private cancelarR = 'http://localhost:8080/reserva/actualizarReserva/';
 
+  private eliminarR = 'http://localhost:8080/reserva/eliminarReserva/';
+
   guardarReserva(reserva: ReservaEntidad): Observable<any> {
     return this.httpCliente.post(this.guardarR, reserva);
   }
@@ -31,5 +33,9 @@ export class ReservaServicio {
 
   cancelarReserva(reserva: ReservaEntidad): Observable<any> {
   return this.httpCliente.put(this.cancelarR, reserva);
+}
+
+  eliminarReserva(idReserva: number): Observable<any> {
+  return this.httpCliente.delete(this.eliminarR, { body: idReserva });
 }
 }

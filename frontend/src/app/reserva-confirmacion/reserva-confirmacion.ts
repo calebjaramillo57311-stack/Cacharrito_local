@@ -15,9 +15,7 @@ export class ReservaConfirmacion implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    const nav = this.router.getCurrentNavigation();
-    this.reserva = nav?.extras?.state?.['reserva'] ?? history.state?.reserva ?? null;
-
+    this.reserva = history.state?.reserva ?? null;
     if (!this.reserva) {
       this.router.navigate(['/']);
     }
