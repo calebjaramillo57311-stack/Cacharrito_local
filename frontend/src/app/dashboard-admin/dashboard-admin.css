@@ -1,0 +1,91 @@
+:host {
+  display: block;
+  background-color: #EBF3FB;
+  min-height: 100vh;
+}
+
+.hero-section {
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+}
+
+.hero-section h1 {
+  font-size: 2rem;
+  color: #1a1a2e;
+}
+
+.btn-ver-reservas {
+  background-color: #8B5E1A;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background-color 0.15s;
+}
+
+.btn-ver-reservas:hover {
+  background-color: #7a5216;
+  color: #fff;
+}
+
+.cards-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card-dash {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.card-dash:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-blue   { background: #E6F1FB; color: #185FA5; }
+.icon-amber  { background: #FAEEDA; color: #854F0B; }
+.icon-teal   { background: #E1F5EE; color: #0F6E56; }
+.icon-purple { background: #EEEDFE; color: #534AB7; }
+
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.55;
+  flex: 1;
+}
+
+.card-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: #6c757d;
+  margin-top: 4px;
+}
