@@ -21,14 +21,28 @@ export class MisReservas {
 
   buscarReserva(): void {
     if (!this.busquedaId.trim()) return;
-  
+
     this.cargando.set(true);
     this.buscado.set(false);
-  
+
     this.reservaServicio.buscarPorCedula(this.busquedaId).subscribe({
       next: (resultado: ReservaEntidad[]) => {
         console.log(resultado);
-        this.reservas.set(resultado ?? []);
+
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
+
+        const filtradas = (resultado ?? []).filter(reserva => {
+          const fechaSalida = new Date(reserva.viaje.fechaSalida);
+          fechaSalida.setHours(0, 0, 0, 0);
+
+          const noEsPasada = fechaSalida >= hoy;
+          const noCancelada = reserva.estado?.toUpperCase() !== 'CANCELADA';
+
+          return noEsPasada && noCancelada;
+        });
+
+        this.reservas.set(filtradas);
         this.buscado.set(true);
         this.cargando.set(false);
       },
