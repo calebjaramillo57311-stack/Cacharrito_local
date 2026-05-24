@@ -8,6 +8,7 @@ import { login } from './login/login';
 import { MisReservas } from './mis-reservas/mis-reservas';
 import { GestionReservas } from './gestion-reservas/gestion-reservas';
 import { ReservasDelDia } from './reservas-del-dia/reservas-del-dia';
+import { GestionAutomoviles } from './gestion-automoviles/gestion-automoviles';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'viajesDisponibles', pathMatch: 'full' },
@@ -18,5 +19,6 @@ export const routes: Routes = [
     { path: 'dashboard', component: DashboardAdmin },
     { path: 'misReservas', component: MisReservas},
     { path: 'gestionReservas', component: GestionReservas },
-    { path: 'reservasDelDia', component: ReservasDelDia }
+    { path: 'reservasDelDia', component: ReservasDelDia },
+    { path: 'gestionAutomoviles', component: GestionAutomoviles}
 ];
