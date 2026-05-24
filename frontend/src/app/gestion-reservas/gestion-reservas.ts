@@ -57,31 +57,24 @@ export class GestionReservas implements OnInit {
     });
   }
 
-  cancelar(r: ReservaEntidad): void {
-  if (!confirm('¿Seguro desea cancelar esta reserva?')) return;
-  
-  const reservaActualizada = { ...r, estado: 'cancelado' };
-  this.reservaServicio.cancelarReserva(reservaActualizada).subscribe({
-    next: () => {
-      r.estado = 'cancelado';
-      this.cdr.detectChanges();
-    },
-    error: (err) => console.error(err)
-  });
-}
 
 abrirModal(r: ReservaEntidad): void {
   this.reservaSeleccionada = { ...r };
   this.mostrarModal = true;
 }
 
-cerrarModal(): void {
+cerrarModal() {
   this.mostrarModal = false;
   this.reservaSeleccionada = null;
 }
 
-confirmarPago(): void {
+confirmarPago() {
   if (!this.reservaSeleccionada) return;
+  
+  if (this.reservaSeleccionada.estado === 'cancelado') {
+    alert('Esta reserva ha sido cancelada, no es posible registrar pago.');
+    return;
+  }
   const reservaActualizada = { ...this.reservaSeleccionada, estado: 'confirmado' };
   this.reservaServicio.cancelarReserva(reservaActualizada).subscribe({
     next: () => {
@@ -90,6 +83,36 @@ confirmarPago(): void {
       const rf = this.reservasFiltradas.find(x => x.idReserva === this.reservaSeleccionada!.idReserva);
       if (rf) rf.estado = 'confirmado';
       this.cerrarModal();
+      this.cdr.detectChanges();
+    },
+    error: (err) => console.error(err)
+  });
+}
+
+cancelarDesdeModal(): void {
+  if (!this.reservaSeleccionada) return;
+  if (!confirm('¿Seguro desea cancelar esta reserva?')) return;
+
+  const reservaActualizada = { ...this.reservaSeleccionada, estado: 'cancelado' };
+  this.reservaServicio.cancelarReserva(reservaActualizada).subscribe({
+    next: () => {
+      const r = this.reservas.find(x => x.idReserva === this.reservaSeleccionada!.idReserva);
+      if (r) r.estado = 'cancelado';
+      const rf = this.reservasFiltradas.find(x => x.idReserva === this.reservaSeleccionada!.idReserva);
+      if (rf) rf.estado = 'cancelado';
+      this.cerrarModal();
+      this.cdr.detectChanges();
+    },
+    error: (err) => console.error(err)
+  });
+}
+eliminar(r: ReservaEntidad) {
+  if (!confirm('¿Seguro desea eliminar esta reserva? Esta acción no se puede deshacer.')) return;
+
+  this.reservaServicio.eliminarReserva(r.idReserva).subscribe({
+    next: () => {
+      this.reservas = this.reservas.filter(x => x.idReserva !== r.idReserva);
+      this.reservasFiltradas = this.reservasFiltradas.filter(x => x.idReserva !== r.idReserva);
       this.cdr.detectChanges();
     },
     error: (err) => console.error(err)

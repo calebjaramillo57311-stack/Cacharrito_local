@@ -17,7 +17,7 @@
             </div>
             <div class="texto">
               <span class="etiqueta">Destino</span>
-              <span class="valor">{{ reserva.destino }}</span>
+              <span class="valor">{{ reserva.viaje.destino }}</span>
             </div>
           </div>
 
@@ -30,7 +30,7 @@
             </div>
             <div class="texto">
               <span class="etiqueta">Fecha y Hora</span>
-              <span class="valor">{{ reserva.fechaHora | date:'dd MMM yyyy' }}</span>
+              <span class="valor">{{ reserva.viaje.fechaSalida | date:'dd MMM yyyy' }}</span>
             </div>
           </div>
 
@@ -42,7 +42,7 @@
             </div>
             <div class="texto">
               <span class="etiqueta">Vehículo</span>
-              <span class="valor">#{{ reserva.vehiculo }}</span>
+              <span class="valor">#{{ reserva.viaje.automovil.numeroAutomovil }}</span>
             </div>
           </div>
 
@@ -54,7 +54,7 @@
             </div>
             <div class="texto">
               <span class="etiqueta">Pasajero</span>
-              <span class="valor">{{ reserva.pasajero }}</span>
+              <span class="valor">{{ reserva.usuario.nombre + ' ' + reserva.usuario.apellidos }}</span>
             </div>
           </div>
 
@@ -75,7 +75,7 @@
 
       <div class="card-total">
         <span class="titulo-total">Total a Pagar</span>
-        <span class="precio-total">{{ reserva.total | currency:'COP':'symbol':'1.0-0' }}</span>
+        <span class="precio-total">{{ reserva.totalPagar | currency:'COP':'symbol':'1.0-0' }}</span>
       </div>
 
       <div class="acciones">

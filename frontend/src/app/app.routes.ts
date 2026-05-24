@@ -12,9 +12,9 @@ export const routes: Routes = [
     { path: '', redirectTo: 'viajesDisponibles', pathMatch: 'full' },
     { path: 'viajesDisponibles', component: viajesDisponibles },
     { path: 'reservar/:id', component: Reservar },
-    { path: 'reservaconfirmacion', component: ReservaConfirmacion },
+    { path: 'reservaConfirmacion', component: ReservaConfirmacion },
     { path: 'login', component: login },
     { path: 'dashboard', component: DashboardAdmin },
     { path: 'misReservas', component: MisReservas},
-    { path: 'gestion/reservas', component: GestionReservas},
+    { path: 'dashboard/gestionReservas', component: GestionReservas },
 ];

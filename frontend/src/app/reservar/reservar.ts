@@ -86,19 +86,9 @@ export class Reservar implements OnInit {
     this.reserva.administrador  = null;
 
     this.reservaServicio.guardarReserva(this.reserva).subscribe(dato => {
-      this.router.navigate(['/reservaconfirmacion'], {
-        state: {
-          reserva: {
-            idReserva:      dato.idReserva,
-            destino:        dato.viaje.destino,
-            fechaHora:      dato.viaje.fechaSalida,
-            vehiculo:       dato.viaje.automovil.numeroAutomovil,
-            pasajero:       dato.usuario.nombre + ' ' + dato.usuario.apellidos,
-            puestoAsignado: dato.puestoAsignado,
-            total:          dato.totalPagar
-          }
-        }
-      });
-    });
-  }
+  this.router.navigate(['/reservaConfirmacion'], {
+    state: { reserva: dato }
+  });
+});
+}
 }

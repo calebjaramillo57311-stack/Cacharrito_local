@@ -27,22 +27,62 @@
     color: #64748b;
     margin: 0;
 }
-
-.btn-nueva-reserva {
-    padding: 10px 20px;
-    border: 1.5px solid #1e293b;
-    background: #fff;
-    color: #1e293b;
-    font-size: 13px;
-    font-weight: 600;
+.btn-eliminar {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    padding: 6px 12px;
     border-radius: 6px;
     cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.2s;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.btn-atras {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1e3a5f;
+    padding: 0;
+    margin-bottom: 20px;
+    display: inline-flex;
+}
+
+.btn-atras:hover {
+    color: #2563eb;
+}
+
+.btn-eliminar:hover {
+    background-color: #b91c1c;
+}
+.btn-cerrar {
+    background-color: transparent;
+    color: #16a34a;
+    border: 1.5px solid #16a34a;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.btn-cerrar:hover {
+    background-color: #16a34a;
+    color: white;
+}
+.btn-nueva-reserva {
+    background: #1e293b;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .btn-nueva-reserva:hover {
-    background: #f8fafc;
+    background: #1e293b;
+    color: #fff;
 }
 
 
@@ -222,6 +262,22 @@
 
 .btn-modificar:hover {
     background: #0f172a;
+}
+
+.btn-pago {
+    background-color: transparent;
+    color: #2563eb;
+    border: 1.5px solid #2563eb;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.btn-pago:hover {
+    background-color: #2563eb;
+    color: white;
 }
 
 .btn-cancelar {
