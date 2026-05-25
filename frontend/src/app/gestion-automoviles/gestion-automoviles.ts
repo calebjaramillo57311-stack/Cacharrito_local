@@ -76,6 +76,7 @@ export class GestionAutomoviles implements OnInit {
       next: () => {
         this.cargarAutomoviles();
         this.cerrarModal();
+        alert('¡Automóvil editado exitosamente!');
       },
       error: () => alert('Error al editar el automóvil.')
     });
@@ -84,6 +85,7 @@ export class GestionAutomoviles implements OnInit {
       next: () => {
         this.cargarAutomoviles();
         this.cerrarModal();
+        alert('¡Automóvil creado exitosamente!');
       },
       error: () => alert('Error al crear el automóvil.')
     });
@@ -93,7 +95,10 @@ export class GestionAutomoviles implements OnInit {
 eliminarAutomovil(numeroAutomovil: number){
   if (!confirm(`¿Eliminar el automóvil #${numeroAutomovil}?`)) return;
   this.automovilServicio.eliminarAutomovil(numeroAutomovil).subscribe({
-    next: () => this.cargarAutomoviles(),
+        next: () => {
+      this.cargarAutomoviles();
+      alert('Automóvil eliminado correctamente');
+    },
     error: (err) => {
       if (err.status === 409) {
         alert('El automóvil tiene viajes programados y no puede eliminarse.');

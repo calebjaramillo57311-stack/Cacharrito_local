@@ -13,12 +13,12 @@
       <div class="title-container">
         <h1 class="title">Gestión Viajes</h1>
         <p class="subtitle">
-          Administración manual de viajes.
+          Administración de destinos, horarios y asignación de vehículos.
         </p>
       </div>
 
       <div class="btn-agregar-div">
-        <button class="btn-agregar" (click)="abrirModalAgregar()">+ Nueva Reserva</button>
+        <button class="btn-agregar" (click)="abrirModalAgregar()">+ Crear Nuevo Viaje</button>
       </div>
 
     </div>
@@ -54,7 +54,7 @@
             <th>DESTINO</th>
             <th>SALIDA</th>
             <th>VEHÍCULO</th>
-            <th>PUESTOS</th>
+            <th>PUESTOS DISPONIBLES</th>
             <th>PRECIO</th>
             <th>ACCIONES</th>
           </tr>
@@ -138,7 +138,7 @@
 
       <div class="form-group">
         <label>Número de Automóvil</label>
-        <input type="text" [(ngModel)]="viaje.automovil.numeroAutomovil" [disabled]="tipo === 2"
+        <input type="number" [(ngModel)]="viaje.automovil.numeroAutomovil" [disabled]="tipo === 2"
           placeholder="Ej. 8875" />
       </div>
     </div>

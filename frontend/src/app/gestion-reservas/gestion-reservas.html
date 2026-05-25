@@ -1,7 +1,7 @@
 <div class="page-wrapper">
     <div class="header">
         <div>
-            <button class="btn-atras" routerLink ="/dashboard">
+            <button class="btn-atras" routerLink="/dashboard">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
                 </svg>
@@ -15,11 +15,15 @@
         <div class="filters">
             <div class="filter-group">
                 <label class="filter-label">Cédula</label>
-                <input type="text" class="filter-input" placeholder="Ej: 12345678" [(ngModel)]="cedulaFiltro" />
+                <input type="text" class="filter-input" placeholder="Ej: 12345678"
+                    [(ngModel)]="cedulaFiltro"
+                    (ngModelChange)="onCambioCedula($event)" />
             </div>
             <div class="filter-group">
                 <label class="filter-label">Fecha</label>
-                <input type="date" class="filter-input" [(ngModel)]="fechaFiltro" />
+                <input type="date" class="filter-input"
+                    [(ngModel)]="fechaFiltro"
+                    (ngModelChange)="onCambioFecha($event)" />
             </div>
             <div class="filter-group">
                 <label class="filter-label">Estado</label>
@@ -45,7 +49,7 @@
                     <th>NOMBRE DEL PASAJERO</th>
                     <th>DESTINO</th>
                     <th>FECHA/HORA</th>
-                    <th>AUTOMÓVIL</th>
+                    <th>CÓDIGO RESERVA</th>
                     <th>ESTADO</th>
                     <th>ACCIONES</th>
                 </tr>
@@ -59,7 +63,7 @@
                         <strong>{{ r.viaje.fechaSalida | date:'dd MMM yyyy':'UTC' }}</strong>
                         <span>{{ formatearHora(r.viaje.horaSalida) }}</span>
                     </td>
-                    <td>#{{ r.puestoAsignado }}</td>
+                    <td>#{{ r.idReserva }}</td>
                     <td>
                         <span class="badge"
                             [ngClass]="{
@@ -81,6 +85,7 @@
         <p class="resultados-info">Mostrando {{ reservasFiltradas.length }} resultados</p>
     </div>
 </div>
+
 @if (mostrarModal && reservaSeleccionada) {
 <div class="modal-overlay" (click)="cerrarModal()">
     <div class="modal-box" (click)="$event.stopPropagation()">

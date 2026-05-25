@@ -18,15 +18,27 @@ export class GestionViajes implements OnInit {
   viaje: any = { automovil: {} };
   tipo: number = 1;
 
-  private viajeServicio = inject(ViajeServicio);
-  private automovilServicio = inject(AutomovilServicio);
-  private cdr = inject(ChangeDetectorRef);
+  constructor (
+    private cdr: ChangeDetectorRef,
+    private viajeServicio: ViajeServicio,
+    private AutomovilServicio: AutomovilServicio,
+  ) {}
+
   private detector = inject(PLATFORM_ID);
 
   ngOnInit() {
-    localStorage.setItem('token', 'admin')
+    localStorage.setItem('token', 'admin');
     if (isPlatformBrowser(this.detector)) {
       this.listarV();
+
+      const input = document.getElementById("inputSearch") as HTMLInputElement;
+      if (input) {
+        input.addEventListener('input', () => {
+          if (input.value === '') {
+            this.listarV();
+          }
+        });
+      }
     }
   }
 
@@ -42,23 +54,23 @@ export class GestionViajes implements OnInit {
     if (modal) modal.style.display = 'flex';
   }
 
+  cerrarModal() {
+    this.viaje = { automovil: {} };
+    const modal = document.getElementById("modalViaje");
+    if (modal) modal.style.display = 'none';
+    this.tipo = 1;
+  }
+
   abrirModalAgregar() {
     this.tipo = 1;
     this.viaje = {
       destino: '',
       fechaSalida: '',
       horaSalida: '',
-      precioViaje: null,
-      automovil: { numeroAutomovil: '' }
+      precioViaje: 0,
+      automovil: { numeroAutomovil: 0 }
     };
     this.abrirModal();
-  }
-
-  cerrarModal() {
-    this.viaje = { automovil: {} };
-    const modal = document.getElementById("modalViaje");
-    if (modal) modal.style.display = 'none';
-    this.tipo = 1;
   }
 
   guardar() {
@@ -68,15 +80,26 @@ export class GestionViajes implements OnInit {
       return;
     }
 
+    const ahora = new Date();
+    const fechaHoraViaje = new Date(`${this.viaje.fechaSalida}T${this.viaje.horaSalida}`);
+    if (fechaHoraViaje <= ahora) {
+      alert(`No se puede crear un viaje con una fecha y hora pasada. La fecha y hora de salida debe ser posterior a ${ahora.toLocaleDateString('es-CO')} ${ahora.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })}.`);
+      return;
+    }
+
     if (this.viaje.horaSalida.length === 5) {
       this.viaje.horaSalida = this.viaje.horaSalida + ":00";
     }
+
+    this.viaje.automovil.numeroAutomovil = +this.viaje.automovil.numeroAutomovil;
+    this.viaje.precioViaje = +this.viaje.precioViaje;
 
     if (this.tipo === 1) {
       this.viajeServicio.GuardarViaje(this.viaje).subscribe({
         next: () => {
           this.listarV();
           this.cerrarModal();
+          alert('¡Viaje creado exitosamente!');
         },
         error: (err) => {
           console.error("Error al guardar viaje:", err);
@@ -88,6 +111,7 @@ export class GestionViajes implements OnInit {
         next: () => {
           this.listarV();
           this.cerrarModal();
+          alert('¡Viaje editado exitosamente!');
         },
         error: (err) => {
           console.error("Error al actualizar viaje:", err);
@@ -105,14 +129,23 @@ export class GestionViajes implements OnInit {
   }
 
   eliminar(id: number) {
-    if (confirm("¿Está seguro de eliminar este viaje?")) {
-      this.viajeServicio.EliminarViaje(id).subscribe(() => {
+  if (confirm("¿Está seguro de eliminar este viaje?")) {
+    this.viajeServicio.EliminarViaje(id).subscribe({
+      next: () => {
         this.listarV();
-        this.cdr.detectChanges(); 
-      });
-    }
+        this.cdr.detectChanges();
+        alert('¡Viaje eliminado exitosamente!');
+      },
+      error: (err) => {
+        if (err.status === 409) {
+          alert('No se puede eliminar el viaje porque tiene reservas activas.');
+        } else {
+          alert(err.error?.message || 'Ocurrió un error al eliminar el viaje.');
+        }
+      }
+    });
   }
-
+}
 
   buscar() {
     const id = (document.getElementById("inputSearch") as HTMLInputElement).value;
@@ -129,7 +162,7 @@ export class GestionViajes implements OnInit {
         this.viajes.set([]);
         alert("No se encontró ningún viaje con ese ID");
       }
-      this.cdr.detectChanges(); 
+      this.cdr.detectChanges();
     });
   }
 }

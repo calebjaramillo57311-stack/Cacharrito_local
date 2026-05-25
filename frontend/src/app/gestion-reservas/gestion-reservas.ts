@@ -37,6 +37,14 @@ export class GestionReservas implements OnInit {
     });
   }
 
+  onCambioCedula(valor: string) {
+    if (!valor) this.filtrar();
+}
+
+onCambioFecha(valor: string) {
+    if (!valor) this.filtrar();
+}
+
   formatearHora(hora: string | undefined): string {
     if (!hora) return '';
     const [h, m] = hora.split(':');
@@ -71,11 +79,18 @@ cerrarModal() {
 
 confirmarPago() {
   if (!this.reservaSeleccionada) return;
-  
+
   if (this.reservaSeleccionada.estado === 'cancelado') {
     alert('Esta reserva ha sido cancelada, no es posible registrar pago.');
     return;
   }
+
+  if (this.reservaSeleccionada.estado === 'confirmado') {
+    alert('La reserva ya ha sido confirmada.');
+    this.cerrarModal();
+    return;
+  }
+
   const reservaActualizada = { ...this.reservaSeleccionada, estado: 'confirmado' };
   this.reservaServicio.cancelarReserva(reservaActualizada).subscribe({
     next: () => {
@@ -90,8 +105,15 @@ confirmarPago() {
   });
 }
 
-cancelarDesdeModal(): void {
+cancelarDesdeModal(){
   if (!this.reservaSeleccionada) return;
+
+  if (this.reservaSeleccionada.estado === 'cancelado') {
+    alert('Esta reserva ya ha sido cancelada.');
+    this.cerrarModal();
+    return;
+  }
+
   if (!confirm('¿Seguro desea cancelar esta reserva?')) return;
 
   const reservaActualizada = { ...this.reservaSeleccionada, estado: 'cancelado' };
@@ -115,6 +137,7 @@ eliminar(r: ReservaEntidad) {
       this.reservas = this.reservas.filter(x => x.idReserva !== r.idReserva);
       this.reservasFiltradas = this.reservasFiltradas.filter(x => x.idReserva !== r.idReserva);
       this.cdr.detectChanges();
+      alert('La reserva ha sido eliminada exitosamente.');
     },
     error: (err) => console.error(err)
   });

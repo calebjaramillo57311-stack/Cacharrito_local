@@ -29,6 +29,7 @@ export class login{
 
       const adminObj = typeof res === 'string' ? JSON.parse(res) : res;
       localStorage.setItem('admin', JSON.stringify(adminObj));
+      localStorage.setItem('token', 'admin');
 
       this.router.navigate(['/dashboard']);
       },

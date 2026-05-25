@@ -18,7 +18,7 @@ public class Viaje {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Column(name="idViaje", nullable = false, columnDefinition = "INT UNSIGNED")
-    private int idViaje;
+    private Integer idViaje;
 
     @Column(name="destino", nullable = false, length = 100)
     private String destino;
@@ -30,7 +30,7 @@ public class Viaje {
     private Time horaSalida;
 
     @Column(name="puestosDisponibles", nullable = false)
-    private int puestosDisponibles;
+    private Integer puestosDisponibles;
 
     @Column(name="precioViaje", nullable = false)
     private Double precioViaje;

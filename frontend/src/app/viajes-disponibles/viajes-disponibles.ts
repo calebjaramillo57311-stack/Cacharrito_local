@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ViajeEntidad } from '../entidades/viaje-entidad';
 import { ViajeServicio} from '../servicio/viaje-servicio';
@@ -17,29 +17,32 @@ registerLocaleData(localeEs);
 export class viajesDisponibles implements OnInit {
 
   constructor(
-      private viajeServicio: ViajeServicio,
-      private router: Router
-    ) {}
+    private viajeServicio: ViajeServicio,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   private platformId = inject(PLATFORM_ID);
-  isAdmin: boolean = false;
   destino: string = "";
   fecha: string = "";
   buscado = signal(false);
   viajesEncontrados = signal<ViajeEntidad[]>([]);
 
-  ngOnInit(): void {
+  get isAdmin(): boolean {
     if (isPlatformBrowser(this.platformId)) {
-      this.isAdmin = localStorage.getItem('token') === 'admin';
+      return localStorage.getItem('token') === 'admin';
     }
+    return false;
   }
+
+  ngOnInit(): void {}
 
   buscar() {
     if (!this.destino || !this.fecha) {
       alert("Introduce destino y fecha, por favor");
       return;
     }
-    
+
     this.viajeServicio.consultarViaje(this.destino, this.fecha).subscribe(dato => {
       this.viajesEncontrados.set(dato);
       this.buscado.set(true);

@@ -3,6 +3,7 @@ package com.cacharrito.backend.controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,17 +51,17 @@ public class ViajeControlador {
 
     @Transactional
     @DeleteMapping("eliminarViaje/")
-    public Boolean eliminarViaje(@RequestParam("idViaje") int idViaje) {
-    
+    public ResponseEntity<?> eliminarViaje(@RequestParam("idViaje") int idViaje) {
+
         List<Reserva> reservas = reservaRepositorio.findByViaje_IdViaje(idViaje);
-    
-        for (Reserva r : reservas) {
-            reservaRepositorio.deleteById(r.getIdReserva());
+
+        if (!reservas.isEmpty()) {
+            return ResponseEntity.status(409).body("No se puede eliminar el viaje porque tiene reservas activas.");
         }
-    
+
         viajeRepositorio.deleteById(idViaje);
-    
-        return true;
+
+        return ResponseEntity.ok(true);
     }
 
     @GetMapping("listarTodo/")

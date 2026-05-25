@@ -33,5 +33,6 @@ export class Navegacion implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('admin');
     this.router.navigate(['/viajesDisponibles']);
+    this.cdr.detectChanges();
   }
 }
