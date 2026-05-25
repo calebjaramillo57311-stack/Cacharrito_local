@@ -77,22 +77,34 @@ public class ViajeControlador {
                     new RuntimeException("El automóvil no existe")
                 );
             viaje.setAutomovil(automovil); 
+            viaje.setPuestosDisponibles(automovil.getCantidadPuestos());
         }
         return viajeRepositorio.save(viaje);
     }
 
     @PutMapping("actualizarViaje/")
     public Viaje actualizarViaje(@RequestBody Viaje viaje) {
-    
+        Viaje viajeExistente = viajeRepositorio.findById(viaje.getIdViaje())
+            .orElseThrow(() -> new RuntimeException("El viaje no existe"));
+
         if (viaje.getAutomovil() != null) {
-        
-            Automovil automovil = automovilRepositorio
+            Automovil nuevoAutomovil = automovilRepositorio
                 .findById(viaje.getAutomovil().getNumeroAutomovil())
                 .orElseThrow(() ->
                     new RuntimeException("El automóvil no existe")
                 );
             
-            viaje.setAutomovil(automovil);
+            if (viajeExistente.getAutomovil().getNumeroAutomovil() != nuevoAutomovil.getNumeroAutomovil()) {
+                int ocupados = viajeExistente.getAutomovil().getCantidadPuestos() - viajeExistente.getPuestosDisponibles();
+                int nuevosDisponibles = nuevoAutomovil.getCantidadPuestos() - ocupados;
+                
+                if (nuevosDisponibles < 0) {
+                     throw new RuntimeException("Capacidad insuficiente para los pasajeros ya reservados");
+                }
+                viaje.setPuestosDisponibles(nuevosDisponibles);
+            }
+            
+            viaje.setAutomovil(nuevoAutomovil);
         }
     
         return viajeRepositorio.save(viaje);

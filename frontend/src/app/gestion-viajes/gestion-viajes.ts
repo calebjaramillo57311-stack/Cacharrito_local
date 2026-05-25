@@ -18,12 +18,9 @@ export class GestionViajes implements OnInit {
   viaje: any = { automovil: {} };
   tipo: number = 1;
 
-  constructor (
-    private cdr: ChangeDetectorRef,
-    private viajeServicio: ViajeServicio,
-    private AutomovilServicio: AutomovilServicio,
-  ) {}
-
+  private viajeServicio = inject(ViajeServicio);
+  private automovilServicio = inject(AutomovilServicio);
+  private cdr = inject(ChangeDetectorRef);
   private detector = inject(PLATFORM_ID);
 
   ngOnInit() {
@@ -45,6 +42,18 @@ export class GestionViajes implements OnInit {
     if (modal) modal.style.display = 'flex';
   }
 
+  abrirModalAgregar() {
+    this.tipo = 1;
+    this.viaje = {
+      destino: '',
+      fechaSalida: '',
+      horaSalida: '',
+      precioViaje: null,
+      automovil: { numeroAutomovil: '' }
+    };
+    this.abrirModal();
+  }
+
   cerrarModal() {
     this.viaje = { automovil: {} };
     const modal = document.getElementById("modalViaje");
@@ -64,21 +73,26 @@ export class GestionViajes implements OnInit {
     }
 
     if (this.tipo === 1) {
-      this.AutomovilServicio.buscarAutomovil(this.viaje.automovil.numeroAutomovil).subscribe(automovilData => {
-        this.viaje.automovil = automovilData;
-        this.viaje.puestosDisponibles = automovilData.cantidadPuestos;
-        this.viajeServicio.GuardarViaje(this.viaje).subscribe(() => {
+      this.viajeServicio.GuardarViaje(this.viaje).subscribe({
+        next: () => {
           this.listarV();
           this.cerrarModal();
-        });
-      }, error => {
-        console.error('Error al buscar automóvil:', error);
-        alert('No se encontró el automóvil con el número especificado.');
+        },
+        error: (err) => {
+          console.error("Error al guardar viaje:", err);
+          alert(err.error?.message || "Ocurrió un error al guardar el viaje");
+        }
       });
     } else {
-      this.viajeServicio.actualizarViaje(this.viaje).subscribe(() => {
-        this.listarV();
-        this.cerrarModal();
+      this.viajeServicio.actualizarViaje(this.viaje).subscribe({
+        next: () => {
+          this.listarV();
+          this.cerrarModal();
+        },
+        error: (err) => {
+          console.error("Error al actualizar viaje:", err);
+          alert(err.error?.message || "Ocurrió un error al actualizar el viaje. Verifique la capacidad del automóvil.");
+        }
       });
     }
   }

@@ -456,6 +456,8 @@
 }
 
 .btn-atras {
+    position: absolute;
+    left: 0;
     background: none;
     border: none;
     cursor: pointer;
@@ -467,4 +469,49 @@
 
 .btn-atras:hover {
     color: #2563eb;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.title-container {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.title {
+    margin: 0;
+}
+
+.subtitle {
+    margin: 5px 0 0 0;
+}
+
+.btn-agregar-div {
+    position: absolute;
+    right: 0;
+}
+
+.btn-agregar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #1a2e4a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.btn-agregar:hover {
+    background: #243d60;
 }
